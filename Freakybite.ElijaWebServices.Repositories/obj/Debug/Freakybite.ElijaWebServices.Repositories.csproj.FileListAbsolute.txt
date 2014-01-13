@@ -1,0 +1,1 @@
+c:\users\juan carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Repositories\obj\Debug\Freakybite.ElijaWebServices.Repositories.csprojResolveAssemblyReference.cache

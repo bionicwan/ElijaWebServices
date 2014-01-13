@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ElijaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ElijaModelStoreContainer">
+    <EntitySet Name="User" EntityType="ElijaModel.Store.User" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="Age" Type="int" Nullable="false" />
+    <Property Name="DateOfBirth" Type="date" Nullable="false" />
+    <Property Name="TelephoneHome" Type="varchar" Nullable="false" MaxLength="25" />
+    <Property Name="TelephoneOffice" Type="varchar" Nullable="false" MaxLength="25" />
+    <Property Name="TelephoneMobile" Type="varchar" Nullable="false" MaxLength="25" />
+    <Property Name="Email" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="City" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freakybite.ElijaWebServices.DataAccess", "Freakybite.ElijaWebServices.DataAccess\Freakybite.ElijaWebServices.DataAccess.csproj", "{CA69C719-9966-4135-A200-4B9C14D0626F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freakybite.ElijaWebServices.Processing", "Freakybite.ElijaWebServices.Processing\Freakybite.ElijaWebServices.Processing.csproj", "{4E9BC6C9-F1A3-4384-BE8A-3F7E679A0560}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freakybite.ElijaWebServices.RestServices", "Freakybite.ElijaWebServices.RestServices\Freakybite.ElijaWebServices.RestServices.csproj", "{6F230E6D-72E4-4F81-885F-CFEB492A8AC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freakybite.ElijaWebServices.Entities", "Freakybite.ElijaWebServices.Entities\Freakybite.ElijaWebServices.Entities.csproj", "{048E5A16-EF0E-4D81-A143-9438BAE0508C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA69C719-9966-4135-A200-4B9C14D0626F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA69C719-9966-4135-A200-4B9C14D0626F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA69C719-9966-4135-A200-4B9C14D0626F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA69C719-9966-4135-A200-4B9C14D0626F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E9BC6C9-F1A3-4384-BE8A-3F7E679A0560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E9BC6C9-F1A3-4384-BE8A-3F7E679A0560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E9BC6C9-F1A3-4384-BE8A-3F7E679A0560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E9BC6C9-F1A3-4384-BE8A-3F7E679A0560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F230E6D-72E4-4F81-885F-CFEB492A8AC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F230E6D-72E4-4F81-885F-CFEB492A8AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F230E6D-72E4-4F81-885F-CFEB492A8AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F230E6D-72E4-4F81-885F-CFEB492A8AC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{048E5A16-EF0E-4D81-A143-9438BAE0508C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{048E5A16-EF0E-4D81-A143-9438BAE0508C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{048E5A16-EF0E-4D81-A143-9438BAE0508C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{048E5A16-EF0E-4D81-A143-9438BAE0508C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
