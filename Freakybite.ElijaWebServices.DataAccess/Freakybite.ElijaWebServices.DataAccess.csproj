@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
@@ -49,49 +50,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ElijaModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ElijaModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="ElijaModel.cs">
+    <Compile Include="Model\ElijaModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ElijaModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ElijaModel.Designer.cs">
+    <Compile Include="Model\ElijaModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ElijaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User.cs">
-      <DependentUpon>ElijaModel.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <EntityDeploy Include="ElijaModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ElijaModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="ElijaModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ElijaModel.edmx</DependentUpon>
-      <LastGenOutput>ElijaModel.Context.cs</LastGenOutput>
-    </None>
-    <None Include="ElijaModel.edmx.diagram">
-      <DependentUpon>ElijaModel.edmx</DependentUpon>
-    </None>
-    <None Include="ElijaModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ElijaModel.edmx</DependentUpon>
-      <LastGenOutput>ElijaModel.cs</LastGenOutput>
-    </None>
-    <None Include="packages.config" />
+    <Compile Include="Repositories\Implementations\DbContextFactory.cs" />
+    <Compile Include="Repositories\Implementations\DeviceRepository.cs" />
+    <Compile Include="Repositories\Implementations\Repository.cs" />
+    <Compile Include="Repositories\Implementations\UserRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IDbContextFactory1.cs" />
+    <Compile Include="Repositories\Interfaces\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Freakybite.ElijaWebServices.Entities\Freakybite.ElijaWebServices.Entities.csproj">
+      <Project>{048e5a16-ef0e-4d81-a143-9438bae0508c}</Project>
+      <Name>Freakybite.ElijaWebServices.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <EntityDeploy Include="Model\ElijaModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ElijaModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\ElijaModel.edmx.diagram">
+      <DependentUpon>ElijaModel.edmx</DependentUpon>
+    </None>
+    <None Include="Model\ElijaModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ElijaModel.cs</LastGenOutput>
+      <DependentUpon>ElijaModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

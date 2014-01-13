@@ -1,5 +1,4 @@
-﻿
-namespace Freakybite.ElijaWebServices.Entities
+﻿namespace Freakybite.ElijaWebServices.Entities.DataContracts
 {
     public class UserModel
     {

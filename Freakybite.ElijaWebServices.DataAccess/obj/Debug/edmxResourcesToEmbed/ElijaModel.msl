@@ -1,6 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="ElijaModelStoreContainer" CdmEntityContainer="ElijaContext">
+    <EntitySetMapping Name="Device">
+      <EntityTypeMapping TypeName="ElijaModel.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+          <ScalarProperty Name="Brand" ColumnName="Brand" />
+          <ScalarProperty Name="Device1" ColumnName="Device" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="LabelId" ColumnName="LabelId" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+          <ScalarProperty Name="PhoneType" ColumnName="PhoneType" />
+          <ScalarProperty Name="Operator" ColumnName="Operator" />
+          <ScalarProperty Name="OsVersion" ColumnName="OsVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="User">
       <EntityTypeMapping TypeName="ElijaModel.User">
         <MappingFragment StoreEntitySet="User">

@@ -4,8 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e6801360df8e45e6a7c39a5e1a182b40" Name="Diagrama1">
-        <EntityTypeShape EntityType="ElijaModel.User" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="408b1a63cf4f4d288b3a12e9e977d6e6" Name="Diagram1">
+        <EntityTypeShape EntityType="ElijaContext.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ElijaContext.Device" Width="1.5" PointX="5.125" PointY="0.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
