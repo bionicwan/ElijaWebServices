@@ -20,3 +20,5 @@ C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServic
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.DataAccess\obj\Debug\Freakybite.ElijaWebServices.DataAccess.pdb
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.DataAccess\bin\Debug\Freakybite.ElijaWebServices.Entities.dll
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.DataAccess\bin\Debug\Freakybite.ElijaWebServices.Entities.pdb
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.DataAccess\bin\Debug\Freakybite.ElijaWebServices.Entities.dll
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.DataAccess\bin\Debug\Freakybite.ElijaWebServices.Entities.pdb

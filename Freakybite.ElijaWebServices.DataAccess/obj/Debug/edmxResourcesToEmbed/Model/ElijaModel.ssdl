@@ -1,42 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="ElijaContext.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="ElijaContextStoreContainer">
-    <EntitySet Name="Device" EntityType="ElijaContext.Store.Device" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="User" EntityType="ElijaContext.Store.User" store:Type="Tables" Schema="dbo" />
+<Schema Namespace="ElijaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ElijaModelStoreContainer">
+    <EntitySet Name="Device" EntityType="ElijaModel.Store.Device" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User" EntityType="ElijaModel.Store.User" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserDevice" EntityType="ElijaModel.Store.UserDevice" store:Type="Tables" store:Schema="dbo" store:Name="UserDevice">
+      <DefiningQuery>SELECT 
+      [UserDevice].[UserId] AS [UserId], 
+      [UserDevice].[DeviceId] AS [DeviceId]
+      FROM [dbo].[UserDevice] AS [UserDevice]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__UserDevic__Devic__32E0915F" Association="ElijaModel.Store.FK__UserDevic__Devic__32E0915F">
+      <End Role="Device" EntitySet="Device" />
+      <End Role="UserDevice" EntitySet="UserDevice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserDevic__UserI__31EC6D26" Association="ElijaModel.Store.FK__UserDevic__UserI__31EC6D26">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserDevice" EntitySet="UserDevice" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Device">
     <Key>
-      <PropertyRef Name="IMEI" />
+      <PropertyRef Name="DeviceId" />
     </Key>
+    <Property Name="DeviceId" Type="bigint" Nullable="false" />
     <Property Name="IMEI" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="Brand" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="DeviceName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Device" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Display" Type="varchar" Nullable="false" MaxLength="10" />
-    <Property Name="LabelId" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Manufacturer" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Model" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="ProductName" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="PhoneType" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Product" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Operator" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="AndroidId" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="OsVersion" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
     <Property Name="CodeVersion" Type="varchar" Nullable="false" MaxLength="20" />
-    <Property Name="VersionName" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="ReleaseVersion" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="IsPhone" Type="bit" Nullable="false" />
+    <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="User">
     <Key>
-      <PropertyRef Name="UserId" />
+      <PropertyRef Name="FacebookId" />
     </Key>
-    <Property Name="UserId" Type="bigint" Nullable="false" />
-    <Property Name="Name" Type="varchar" MaxLength="100" />
+    <Property Name="FacebookId" Type="bigint" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="100" />
     <Property Name="LastName" Type="varchar" MaxLength="100" />
     <Property Name="Age" Type="int" />
-    <Property Name="DateOfBirth" Type="date" />
+    <Property Name="Birthday" Type="date" />
+    <Property Name="Gender" Type="varchar" MaxLength="10" />
+    <Property Name="FacebookLink" Type="varchar" MaxLength="150" />
     <Property Name="TelephoneHome" Type="varchar" MaxLength="20" />
     <Property Name="TelephoneOffice" Type="varchar" MaxLength="20" />
     <Property Name="TelephoneMobile" Type="varchar" MaxLength="20" />
     <Property Name="Email" Type="varchar" MaxLength="100" />
     <Property Name="City" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="255" />
     <Property Name="RegistrationDate" Type="datetime" />
   </EntityType>
+  <!--Se encontraron errores durante la generación:
+      advertencia 6002: La tabla o vista 'Elija.dbo.UserDevice' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
+      -->
+  <EntityType Name="UserDevice">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="DeviceId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="DeviceId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__UserDevic__Devic__32E0915F">
+    <End Role="Device" Type="ElijaModel.Store.Device" Multiplicity="1" />
+    <End Role="UserDevice" Type="ElijaModel.Store.UserDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="DeviceId" />
+      </Principal>
+      <Dependent Role="UserDevice">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserDevic__UserI__31EC6D26">
+    <End Role="User" Type="ElijaModel.Store.User" Multiplicity="1" />
+    <End Role="UserDevice" Type="ElijaModel.Store.UserDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="FacebookId" />
+      </Principal>
+      <Dependent Role="UserDevice">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -30,11 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -65,7 +66,7 @@
     <Compile Include="Repositories\Implementations\DeviceRepository.cs" />
     <Compile Include="Repositories\Implementations\Repository.cs" />
     <Compile Include="Repositories\Implementations\UserRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IDbContextFactory1.cs" />
+    <Compile Include="Repositories\Interfaces\IDbContextFactory.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -78,11 +79,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
     <EntityDeploy Include="Model\ElijaModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ElijaModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="App.Config" />
     <None Include="Model\ElijaModel.edmx.diagram">
       <DependentUpon>ElijaModel.edmx</DependentUpon>
     </None>
@@ -93,6 +94,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

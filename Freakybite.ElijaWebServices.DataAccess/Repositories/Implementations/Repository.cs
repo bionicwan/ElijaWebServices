@@ -182,7 +182,7 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         /// </param>
         public void Refresh(T entity)
         {
-            Context.Refresh(RefreshMode.StoreWins, entity);
+            Context.Refresh((System.Data.Entity.Core.Objects.RefreshMode) RefreshMode.StoreWins, entity);
         }
 
         /// <summary>
@@ -204,7 +204,7 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         /// </param>
         public void Update(T entity)
         {
-            Context.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+            Context.ObjectStateManager.ChangeObjectState(entity, (System.Data.Entity.EntityState) EntityState.Modified);
         }
 
         #endregion

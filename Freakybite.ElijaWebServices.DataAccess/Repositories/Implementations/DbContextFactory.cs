@@ -2,8 +2,8 @@
 
 namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
 {
-    using Freakybite.ElijaWebServices.DataAccess.Model;
-    using Freakybite.ElijaWebServices.DataAccess.Repositories.Interfaces;
+    using Model;
+    using Interfaces;
 
     public class DbContextFactory : IDbContextFactory
     {

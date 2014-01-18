@@ -1,7 +1,7 @@
 ﻿namespace Freakybite.ElijaWebServices.RestServices
 {
-    using Freakybite.ElijaWebServices.Entities.DataContracts;
-    using Freakybite.ElijaWebServices.Processing.ServiceManagers;
+    using Entities.DataContracts;
+    using Processing.ServiceManagers;
 
     public class ElijaWebServices : IElijaWebServices
     {

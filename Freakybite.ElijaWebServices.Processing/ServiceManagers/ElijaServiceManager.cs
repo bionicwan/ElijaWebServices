@@ -71,13 +71,13 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
             try
             {
-                var userDb = UserRepository.FindFirstBy(e => e.UserId == user.UserId);
+                var userDb = UserRepository.FindFirstBy(e => e.FacebookId == user.FacebookId);
                 if (userDb == null)
                 {
                     userDb = new User
                                  {
-                                     UserId = user.UserId,
-                                     Name = user.Name,
+                                     FacebookId = user.FacebookId,
+                                     FirstName = user.FirstName,
                                      LastName = user.LastName,
                                      Age = user.Age,
                                      City = user.City,
@@ -91,13 +91,13 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                     DateTime registrationDate;
 
                     if (DateTime.TryParseExact(
-                        user.DateOfBirth,
+                        user.Birthday,
                         "yyyy-MM-dd",
                         CultureInfo.InvariantCulture,
                         DateTimeStyles.None,
                         out dateOfBirth))
                     {
-                        userDb.DateOfBirth = dateOfBirth;
+                        userDb.Birthday = dateOfBirth;
                     }
 
                     if (DateTime.TryParse(user.RegistrationDate, out registrationDate))
@@ -143,16 +143,14 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                                    {
                                        IMEI = device.Imei,
                                        Brand = device.Brand,
-                                       DeviceName = device.DeviceName,
+                                       Device1 = device.Device,
                                        Display = device.Display,
-                                       LabelId = device.LabelId,
                                        Manufacturer = device.Manufacturer,
                                        Model = device.Model,
                                        Operator = device.Operator,
                                        OsVersion = device.OsVersion,
-                                       PhoneType = device.PhoneType,
-                                       ProductName = device.ProductName,
-                                       VersionName = device.VersionName,
+                                       Product = device.Product,
+                                       ReleaseVersion = device.ReleaseVersion,
                                        CodeVersion = device.CodeVersion
                                    };
 

@@ -1,42 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="ElijaContextStoreContainer" CdmEntityContainer="ElijaEntities">
+  <EntityContainerMapping StorageEntityContainer="ElijaModelStoreContainer" CdmEntityContainer="ElijaEntities">
+    <EntitySetMapping Name="Device">
+      <EntityTypeMapping TypeName="ElijaModel.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+          <ScalarProperty Name="Brand" ColumnName="Brand" />
+          <ScalarProperty Name="Device1" ColumnName="Device" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="Operator" ColumnName="Operator" />
+          <ScalarProperty Name="AndroidId" ColumnName="AndroidId" />
+          <ScalarProperty Name="OsVersion" ColumnName="OsVersion" />
+          <ScalarProperty Name="CodeVersion" ColumnName="CodeVersion" />
+          <ScalarProperty Name="ReleaseVersion" ColumnName="ReleaseVersion" />
+          <ScalarProperty Name="IsPhone" ColumnName="IsPhone" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="User">
-      <EntityTypeMapping TypeName="ElijaContext.User">
+      <EntityTypeMapping TypeName="ElijaModel.User">
         <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
           <ScalarProperty Name="Age" ColumnName="Age" />
-          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
           <ScalarProperty Name="TelephoneHome" ColumnName="TelephoneHome" />
           <ScalarProperty Name="TelephoneOffice" ColumnName="TelephoneOffice" />
           <ScalarProperty Name="TelephoneMobile" ColumnName="TelephoneMobile" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Device">
-      <EntityTypeMapping TypeName="ElijaContext.Device">
-        <MappingFragment StoreEntitySet="Device">
-          <ScalarProperty Name="VersionName" ColumnName="VersionName" />
-          <ScalarProperty Name="CodeVersion" ColumnName="CodeVersion" />
-          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
-          <ScalarProperty Name="OsVersion" ColumnName="OsVersion" />
-          <ScalarProperty Name="Operator" ColumnName="Operator" />
-          <ScalarProperty Name="PhoneType" ColumnName="PhoneType" />
-          <ScalarProperty Name="ProductName" ColumnName="ProductName" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-          <ScalarProperty Name="LabelId" ColumnName="LabelId" />
-          <ScalarProperty Name="Display" ColumnName="Display" />
-          <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
-          <ScalarProperty Name="Brand" ColumnName="Brand" />
-          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <AssociationSetMapping Name="UserDevice" TypeName="ElijaModel.UserDevice" StoreEntitySet="UserDevice">
+      <EndProperty Name="Device">
+        <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+      </EndProperty>
+      <EndProperty Name="User">
+        <ScalarProperty Name="FacebookId" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>
