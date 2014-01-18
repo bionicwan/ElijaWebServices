@@ -6,9 +6,9 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 {
     using System.Globalization;
 
-    using Freakybite.ElijaWebServices.DataAccess.Model;
-    using Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations;
-    using Freakybite.ElijaWebServices.Entities.DataContracts;
+    using DataAccess.Model;
+    using DataAccess.Repositories.Implementations;
+    using Entities.DataContracts;
 
     public class ElijaServiceManager
     {
