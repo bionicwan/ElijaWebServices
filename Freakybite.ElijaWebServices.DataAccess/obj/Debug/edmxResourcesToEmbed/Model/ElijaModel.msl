@@ -25,6 +25,7 @@
     <EntitySetMapping Name="User">
       <EntityTypeMapping TypeName="ElijaModel.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -42,13 +43,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="UserDevice" TypeName="ElijaModel.UserDevice" StoreEntitySet="UserDevice">
-      <EndProperty Name="Device">
-        <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-      </EndProperty>
-      <EndProperty Name="User">
-        <ScalarProperty Name="FacebookId" ColumnName="UserId" />
-      </EndProperty>
-    </AssociationSetMapping>
+    <EntitySetMapping Name="UserDevice">
+      <EntityTypeMapping TypeName="ElijaModel.UserDevice">
+        <MappingFragment StoreEntitySet="UserDevice">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

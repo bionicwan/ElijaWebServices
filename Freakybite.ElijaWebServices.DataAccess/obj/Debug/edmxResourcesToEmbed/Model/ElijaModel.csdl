@@ -3,9 +3,14 @@
   <EntityContainer Name="ElijaEntities" p1:LazyLoadingEnabled="true">
     <EntitySet Name="Device" EntityType="ElijaModel.Device" />
     <EntitySet Name="User" EntityType="ElijaModel.User" />
-    <AssociationSet Name="UserDevice" Association="ElijaModel.UserDevice">
+    <EntitySet Name="UserDevice" EntityType="ElijaModel.UserDevice" />
+    <AssociationSet Name="FK__UserDevic__Devic__44FF419A" Association="ElijaModel.FK__UserDevic__Devic__44FF419A">
       <End Role="Device" EntitySet="Device" />
+      <End Role="UserDevice" EntitySet="UserDevice" />
+    </AssociationSet>
+    <AssociationSet Name="FK__UserDevic__UserI__440B1D61" Association="ElijaModel.FK__UserDevic__UserI__440B1D61">
       <End Role="User" EntitySet="User" />
+      <End Role="UserDevice" EntitySet="UserDevice" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Device">
@@ -27,13 +32,14 @@
     <Property Name="ReleaseVersion" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
     <Property Name="IsPhone" Type="Boolean" Nullable="false" />
     <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
-    <NavigationProperty Name="User" Relationship="ElijaModel.UserDevice" FromRole="Device" ToRole="User" />
+    <NavigationProperty Name="UserDevice" Relationship="ElijaModel.FK__UserDevic__Devic__44FF419A" FromRole="Device" ToRole="UserDevice" />
   </EntityType>
   <EntityType Name="User">
     <Key>
-      <PropertyRef Name="FacebookId" />
+      <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="FacebookId" Type="Int64" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="FacebookId" Type="Int64" />
     <Property Name="FirstName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
     <Property Name="LastName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
     <Property Name="Age" Type="Int32" />
@@ -47,10 +53,42 @@
     <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Address" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
     <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
-    <NavigationProperty Name="Device" Relationship="ElijaModel.UserDevice" FromRole="User" ToRole="Device" />
+    <NavigationProperty Name="UserDevice" Relationship="ElijaModel.FK__UserDevic__UserI__440B1D61" FromRole="User" ToRole="UserDevice" />
   </EntityType>
-  <Association Name="UserDevice">
-    <End Role="Device" Type="ElijaModel.Device" Multiplicity="*" />
-    <End Role="User" Type="ElijaModel.User" Multiplicity="*" />
+  <EntityType Name="UserDevice">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="DeviceId" />
+    </Key>
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="DeviceId" Type="Int64" Nullable="false" />
+    <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Device" Relationship="ElijaModel.FK__UserDevic__Devic__44FF419A" FromRole="UserDevice" ToRole="Device" />
+    <NavigationProperty Name="User" Relationship="ElijaModel.FK__UserDevic__UserI__440B1D61" FromRole="UserDevice" ToRole="User" />
+  </EntityType>
+  <Association Name="FK__UserDevic__Devic__44FF419A">
+    <End Role="Device" Type="ElijaModel.Device" Multiplicity="1" />
+    <End Role="UserDevice" Type="ElijaModel.UserDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Device">
+        <PropertyRef Name="DeviceId" />
+      </Principal>
+      <Dependent Role="UserDevice">
+        <PropertyRef Name="DeviceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__UserDevic__UserI__440B1D61">
+    <End Role="User" Type="ElijaModel.User" Multiplicity="1" />
+    <End Role="UserDevice" Type="ElijaModel.UserDevice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserDevice">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
   </Association>
 </Schema>

@@ -10,10 +10,10 @@
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        public Result UserRegistration(UserModel user)
+        public Result UserRegistration(UserDeviceModel userDevice)
         {
             var service = new ElijaServiceManager();
-            var result = service.RegisterUser(user);
+            var result = service.RegisterUser(userDevice);
             return result;
         }
         /// <summary>

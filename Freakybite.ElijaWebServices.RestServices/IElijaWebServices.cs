@@ -12,7 +12,7 @@ namespace Freakybite.ElijaWebServices.RestServices
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "UserRegistration/")]
-        Result UserRegistration(UserModel user);
+        Result UserRegistration(UserDeviceModel userDevice);
 
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare,

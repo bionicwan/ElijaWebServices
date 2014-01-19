@@ -20,6 +20,8 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
         private UserRepository userRepository;
 
+        private UserDeviceRepository userDeviceRepository;
+
         #endregion
 
         #region Public Properties
@@ -37,6 +39,19 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             }
         }
 
+        public UserDeviceRepository UserDeviceRepository
+        {
+            get
+            {
+                if (this.userDeviceRepository == null)
+                {
+                    this.userDeviceRepository = new UserDeviceRepository(context);
+                }
+
+                return userDeviceRepository;
+            }
+        }
+
         public DeviceRepository DeviceRepository
         {
             get
@@ -49,6 +64,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 return deviceRepository;
             }
         }
+
         #endregion
 
         #region Public Methods and Operators
@@ -56,63 +72,62 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         /// <summary>
         /// Registers a new user into the Data Base.
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="userDevice"></param>
         /// <returns></returns>
-        public Result RegisterUser(UserModel user)
+        public Result RegisterUser(UserDeviceModel userDevice)
         {
-            var result = new Result(){ Success = true };
+            var result = new Result() {Success = true};
+            DateTime dateOfBirth;
+            DateTime registrationDate;
 
-            if (user == null)
+            if (userDevice == null)
             {
                 result.Success = false;
-                result.Message = "El usuario no puede ser nulo.";
+                result.Message = "User information cannot be null.";
+                return result;
+            }
+
+            if (!DateTime.TryParseExact(
+                        userDevice.Birthday,
+                        "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
+                        out dateOfBirth))
+            {
+                result.Success = false;
+                result.Message = "The date of birth is in the wrong format.";
+                return result;
+            }
+
+            if (!DateTime.TryParse(userDevice.RegistrationDate, out registrationDate))
+            {
+                result.Success = false;
+                result.Message = "The registration date is in the wrong format.";
                 return result;
             }
 
             try
             {
-                var userDb = UserRepository.FindFirstBy(e => e.FacebookId == user.FacebookId);
+                var userDb = UserRepository.FindFirstBy(e => e.FacebookId == userDevice.FacebookId);
                 if (userDb == null)
                 {
-                    userDb = new User
-                                 {
-                                     FacebookId = user.FacebookId,
-                                     FirstName = user.FirstName,
-                                     LastName = user.LastName,
-                                     Age = user.Age,
-                                     City = user.City,
-                                     Email = user.Email,
-                                     TelephoneHome = user.TelephoneHome,
-                                     TelephoneMobile = user.TelephoneMobile,
-                                     TelephoneOffice = user.TelephoneOffice
-                                 };
-
-                    DateTime dateOfBirth;
-                    DateTime registrationDate;
-
-                    if (DateTime.TryParseExact(
-                        user.Birthday,
-                        "yyyy-MM-dd",
-                        CultureInfo.InvariantCulture,
-                        DateTimeStyles.None,
-                        out dateOfBirth))
+                    InsertNewUser(userDevice, dateOfBirth, registrationDate);
+                }
+                else
+                {
+                    var device =
+                        UserDeviceRepository.FindFirstBy(
+                            e => e.UserId == userDb.UserId && e.Device.AndroidId == userDevice.AndroidId);
+                    if (device == null)
                     {
-                        userDb.Birthday = dateOfBirth;
+                        InsertNewDevice(userDb, userDevice, registrationDate);
                     }
-
-                    if (DateTime.TryParse(user.RegistrationDate, out registrationDate))
-                    {
-                        userDb.RegistrationDate = registrationDate;
-                    }
-
-                    UserRepository.Add(userDb);
-                    UserRepository.Save();
                 }
             }
             catch (Exception)
             {
                 result.Success = false;
-                result.Message = "No se pudo realizar la operación.";
+                result.Message = "The operation was unsuccessful.";
             }
 
             return result;
@@ -125,7 +140,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         /// <returns></returns>
         public Result RegisterDevice(DeviceModel device)
         {
-            var result = new Result() { Success = true };
+            var result = new Result() {Success = true};
 
             if (device == null)
             {
@@ -140,19 +155,21 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 if (deviceDb == null)
                 {
                     deviceDb = new Device
-                                   {
-                                       IMEI = device.Imei,
-                                       Brand = device.Brand,
-                                       Device1 = device.Device,
-                                       Display = device.Display,
-                                       Manufacturer = device.Manufacturer,
-                                       Model = device.Model,
-                                       Operator = device.Operator,
-                                       OsVersion = device.OsVersion,
-                                       Product = device.Product,
-                                       ReleaseVersion = device.ReleaseVersion,
-                                       CodeVersion = device.CodeVersion
-                                   };
+                    {
+                        IMEI = device.Imei,
+                        Brand = device.Brand,
+                        Device1 = device.Device,
+                        Display = device.Display,
+                        Manufacturer = device.Manufacturer,
+                        Model = device.Model,
+                        Operator = device.Operator,
+                        OsVersion = device.OsVersion,
+                        Product = device.Product,
+                        ReleaseVersion = device.ReleaseVersion,
+                        CodeVersion = device.CodeVersion,
+                        AndroidId = device.AndroidId,
+                        IsPhone = device.IsPhone
+                    };
 
                     DateTime registrationDate;
 
@@ -175,5 +192,106 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         }
 
         #endregion
+
+        private void InsertNewUser(UserDeviceModel user, DateTime dateOfBirth, DateTime registrationDate)
+        {
+            var userDevice = new UserDevice();
+            var maxUserId = 1L;
+            var userId = UserRepository.MaxEntity();
+            if (userId != null)
+            {
+                maxUserId = maxUserId + userId.UserId;
+            }
+            userDevice.User = new User
+            {
+                UserId = maxUserId,
+                FacebookId = user.FacebookId,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Age = user.Age,
+                City = user.City,
+                Email = user.Email,
+                Gender = user.Gender,
+                FacebookLink = user.FacebookLink,
+                Address = user.Address,
+                Birthday = dateOfBirth,
+                RegistrationDate = registrationDate
+            };
+
+            var maxDeviceId = 1L;
+            var deviceId = DeviceRepository.MaxEntity();
+            if (deviceId != null)
+            {
+                maxDeviceId = maxDeviceId + deviceId.DeviceId;
+            }
+
+            userDevice.Device = new Device
+            {
+                DeviceId = maxDeviceId,
+                IMEI = user.Imei,
+                AndroidId = user.AndroidId,
+                Brand = user.Brand,
+                CodeVersion = user.CodeVersion,
+                Device1 = user.Device,
+                Display = user.Display,
+                IsPhone = user.IsPhone,
+                Manufacturer = user.Manufacturer,
+                Model = user.Model,
+                Operator = user.Operator,
+                OsVersion = user.OsVersion,
+                Product = user.Product,
+                ReleaseVersion = user.ReleaseVersion,
+                RegistrationDate = registrationDate
+            };
+
+            userDevice.CreatedAt = DateTime.Now;
+            userDevice.LastActivityDate = DateTime.Now;
+
+            UserDeviceRepository.Add(userDevice);
+            UserDeviceRepository.Save();
+        }
+
+        private void InsertNewDevice(User user, UserDeviceModel userDevice, DateTime registrationDate)
+        {
+            var maxDeviceId = 1L;
+            var deviceId = DeviceRepository.MaxEntity();
+            if (deviceId != null)
+            {
+                maxDeviceId = maxDeviceId + deviceId.DeviceId;
+            }
+
+            var device = new Device
+            {
+                DeviceId = maxDeviceId,
+                IMEI = userDevice.Imei,
+                AndroidId = userDevice.AndroidId,
+                Brand = userDevice.Brand,
+                CodeVersion = userDevice.CodeVersion,
+                Device1 = userDevice.Device,
+                Display = userDevice.Display,
+                IsPhone = userDevice.IsPhone,
+                Manufacturer = userDevice.Manufacturer,
+                Model = userDevice.Model,
+                Operator = userDevice.Operator,
+                OsVersion = userDevice.OsVersion,
+                Product = userDevice.Product,
+                ReleaseVersion = userDevice.ReleaseVersion,
+                RegistrationDate = registrationDate
+            };
+
+            DeviceRepository.Add(device);
+            DeviceRepository.Save();
+
+            var userDeviceDb = new UserDevice
+            {
+                UserId = user.UserId,
+                DeviceId = device.DeviceId,
+                CreatedAt = DateTime.Now,
+                LastActivityDate = DateTime.Now
+            };
+
+            UserDeviceRepository.Add(userDeviceDb);
+            userDeviceRepository.Save();
+        }
     }
 }

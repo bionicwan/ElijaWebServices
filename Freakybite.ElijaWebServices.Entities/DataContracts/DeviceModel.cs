@@ -22,7 +22,7 @@
 
         public string Product { get; set; }
 
-        public string AndroidVersion { get; set; }
+        public string AndroidId { get; set; }
 
         public string CodeVersion { get; set; }
 

@@ -9,9 +9,9 @@
 
 using System;
 using System.ComponentModel;
-using System.Data.Entity.Core.EntityClient;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Core.Objects.DataClasses;
+using System.Data.EntityClient;
+using System.Data.Objects;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -19,7 +19,8 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region Metadatos de relaciones en EDM
 
-[assembly: EdmRelationshipAttribute("ElijaModel", "UserDevice", "Device", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.Device), "User", System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.User))]
+[assembly: EdmRelationshipAttribute("ElijaModel", "FK__UserDevic__Devic__44FF419A", "Device", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Freakybite.ElijaWebServices.DataAccess.Model.Device), "UserDevice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.UserDevice), true)]
+[assembly: EdmRelationshipAttribute("ElijaModel", "FK__UserDevic__UserI__440B1D61", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Freakybite.ElijaWebServices.DataAccess.Model.User), "UserDevice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.UserDevice), true)]
 
 #endregion
 
@@ -102,6 +103,22 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
             }
         }
         private ObjectSet<User> _User;
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        public ObjectSet<UserDevice> UserDevice
+        {
+            get
+            {
+                if ((_UserDevice == null))
+                {
+                    _UserDevice = base.CreateObjectSet<UserDevice>("UserDevice");
+                }
+                return _UserDevice;
+            }
+        }
+        private ObjectSet<UserDevice> _UserDevice;
 
         #endregion
 
@@ -121,6 +138,14 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         public void AddToUser(User user)
         {
             base.AddObject("User", user);
+        }
+    
+        /// <summary>
+        /// Método desusado para agregar un nuevo objeto al EntitySet UserDevice. Considere la posibilidad de usar el método .Add de la propiedad ObjectSet&lt;T&gt; asociada.
+        /// </summary>
+        public void AddToUserDevice(UserDevice userDevice)
+        {
+            base.AddObject("UserDevice", userDevice);
         }
 
         #endregion
@@ -557,18 +582,18 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "UserDevice", "User")]
-        public EntityCollection<User> User
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__UserDevic__Devic__44FF419A", "UserDevice")]
+        public EntityCollection<UserDevice> UserDevice
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<User>("ElijaModel.UserDevice", "User");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserDevice>("ElijaModel.FK__UserDevic__Devic__44FF419A", "UserDevice");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<User>("ElijaModel.UserDevice", "User", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserDevice>("ElijaModel.FK__UserDevic__Devic__44FF419A", "UserDevice", value);
                 }
             }
         }
@@ -590,11 +615,11 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         /// <summary>
         /// Crear un nuevo objeto User.
         /// </summary>
-        /// <param name="facebookId">Valor inicial de la propiedad FacebookId.</param>
-        public static User CreateUser(global::System.Int64 facebookId)
+        /// <param name="userId">Valor inicial de la propiedad UserId.</param>
+        public static User CreateUser(global::System.Int64 userId)
         {
             User user = new User();
-            user.FacebookId = facebookId;
+            user.UserId = userId;
             return user;
         }
 
@@ -607,7 +632,34 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int64 FacebookId
+        public global::System.Int64 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _UserId;
+        partial void OnUserIdChanging(global::System.Int64 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int64> FacebookId
         {
             get
             {
@@ -615,18 +667,15 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
             }
             set
             {
-                if (_FacebookId != value)
-                {
-                    OnFacebookIdChanging(value);
-                    ReportPropertyChanging("FacebookId");
-                    _FacebookId = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("FacebookId");
-                    OnFacebookIdChanged();
-                }
+                OnFacebookIdChanging(value);
+                ReportPropertyChanging("FacebookId");
+                _FacebookId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FacebookId");
+                OnFacebookIdChanged();
             }
         }
-        private global::System.Int64 _FacebookId;
-        partial void OnFacebookIdChanging(global::System.Int64 value);
+        private Nullable<global::System.Int64> _FacebookId;
+        partial void OnFacebookIdChanging(Nullable<global::System.Int64> value);
         partial void OnFacebookIdChanged();
     
         /// <summary>
@@ -951,18 +1000,235 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "UserDevice", "Device")]
-        public EntityCollection<Device> Device
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__UserDevic__UserI__440B1D61", "UserDevice")]
+        public EntityCollection<UserDevice> UserDevice
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Device>("ElijaModel.UserDevice", "Device");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserDevice>("ElijaModel.FK__UserDevic__UserI__440B1D61", "UserDevice");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Device>("ElijaModel.UserDevice", "Device", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserDevice>("ElijaModel.FK__UserDevic__UserI__440B1D61", "UserDevice", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No hay documentación de metadatos disponible.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ElijaModel", Name="UserDevice")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class UserDevice : EntityObject
+    {
+        #region Método de generador
+    
+        /// <summary>
+        /// Crear un nuevo objeto UserDevice.
+        /// </summary>
+        /// <param name="userId">Valor inicial de la propiedad UserId.</param>
+        /// <param name="deviceId">Valor inicial de la propiedad DeviceId.</param>
+        /// <param name="createdAt">Valor inicial de la propiedad CreatedAt.</param>
+        /// <param name="lastActivityDate">Valor inicial de la propiedad LastActivityDate.</param>
+        public static UserDevice CreateUserDevice(global::System.Int64 userId, global::System.Int64 deviceId, global::System.DateTime createdAt, global::System.DateTime lastActivityDate)
+        {
+            UserDevice userDevice = new UserDevice();
+            userDevice.UserId = userId;
+            userDevice.DeviceId = deviceId;
+            userDevice.CreatedAt = createdAt;
+            userDevice.LastActivityDate = lastActivityDate;
+            return userDevice;
+        }
+
+        #endregion
+
+        #region Propiedades simples
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                if (_UserId != value)
+                {
+                    OnUserIdChanging(value);
+                    ReportPropertyChanging("UserId");
+                    _UserId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("UserId");
+                    OnUserIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _UserId;
+        partial void OnUserIdChanging(global::System.Int64 value);
+        partial void OnUserIdChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int64 DeviceId
+        {
+            get
+            {
+                return _DeviceId;
+            }
+            set
+            {
+                if (_DeviceId != value)
+                {
+                    OnDeviceIdChanging(value);
+                    ReportPropertyChanging("DeviceId");
+                    _DeviceId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("DeviceId");
+                    OnDeviceIdChanged();
+                }
+            }
+        }
+        private global::System.Int64 _DeviceId;
+        partial void OnDeviceIdChanging(global::System.Int64 value);
+        partial void OnDeviceIdChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private global::System.DateTime _CreatedAt;
+        partial void OnCreatedAtChanging(global::System.DateTime value);
+        partial void OnCreatedAtChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime LastActivityDate
+        {
+            get
+            {
+                return _LastActivityDate;
+            }
+            set
+            {
+                OnLastActivityDateChanging(value);
+                ReportPropertyChanging("LastActivityDate");
+                _LastActivityDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastActivityDate");
+                OnLastActivityDateChanged();
+            }
+        }
+        private global::System.DateTime _LastActivityDate;
+        partial void OnLastActivityDateChanging(global::System.DateTime value);
+        partial void OnLastActivityDateChanged();
+
+        #endregion
+
+        #region Propiedades de navegación
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__UserDevic__Devic__44FF419A", "Device")]
+        public Device Device
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Device>("ElijaModel.FK__UserDevic__Devic__44FF419A", "Device").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Device>("ElijaModel.FK__UserDevic__Devic__44FF419A", "Device").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Device> DeviceReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Device>("ElijaModel.FK__UserDevic__Devic__44FF419A", "Device");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Device>("ElijaModel.FK__UserDevic__Devic__44FF419A", "Device", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__UserDevic__UserI__440B1D61", "User")]
+        public User User
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("ElijaModel.FK__UserDevic__UserI__440B1D61", "User").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("ElijaModel.FK__UserDevic__UserI__440B1D61", "User").Value = value;
+            }
+        }
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<User> UserReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("ElijaModel.FK__UserDevic__UserI__440B1D61", "User");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("ElijaModel.FK__UserDevic__UserI__440B1D61", "User", value);
                 }
             }
         }

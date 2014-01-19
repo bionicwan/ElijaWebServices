@@ -61,9 +61,9 @@ UpdateObjectNamespaceMap(namespaceName);
 
 using System;
 using System.ComponentModel;
-using System.Data.Entity.Core.EntityClient;
-using System.Data.Entity.Core.Objects;
-using System.Data.Entity.Core.Objects.DataClasses;
+using System.Data.EntityClient;
+using System.Data.Objects;
+using System.Data.Objects.DataClasses;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
@@ -219,14 +219,6 @@ namespace <#=namespaceName#>
         {
 
             IEnumerable<FunctionImportParameter> parameters = FunctionImportParameter.Create(edmFunction.Parameters, code, ef);
-
-            // Fixup namespaces for types in EF6 assemblies
-            foreach(var parameter in parameters.Where(p => p.FunctionParameterType == "global::System.Data.Spatial.DbGeography" || p.FunctionParameterType == "global::System.Data.Spatial.DbGeometry"))
-            {
-                parameter.FunctionParameterType = parameter.FunctionParameterType.Replace("global::System.Data.Spatial", "global::System.Data.Entity.Spatial");
-                parameter.RawClrTypeName = parameter.RawClrTypeName.Replace("global::System.Data.Spatial", "global::System.Data.Entity.Spatial");
-            };
-
             string paramList = string.Join(", ", parameters.Select(p => p.FunctionParameterType + " " + p.FunctionParameterName).ToArray());
             TypeUsage returnType = edmFunction.ReturnParameters.Count == 0 ? null : ef.GetElementType(edmFunction.ReturnParameters[0].TypeUsage);
             if (edmFunction.IsComposableAttribute)
@@ -847,15 +839,7 @@ string MultiSchemaEscape(TypeUsage usage, CodeGenerationTools code)
     MetadataTools ef = new MetadataTools(this);
     if (usage.EdmType != null)
     {
-        if(usage.EdmType.Name == "Geography")
-        {
-            return "System.Data.Entity.Spatial.DbGeography";
-        }
-        else if(usage.EdmType.Name == "Geometry")
-        {
-            return "System.Data.Entity.Spatial.DbGeometry";
-        }
-        else if (usage.EdmType is StructuralType)
+        if (usage.EdmType is StructuralType)
         {
             return MultiSchemaEscape(usage.EdmType, code);
         }
@@ -1055,7 +1039,7 @@ string EndName(AssociationType association, int index)
 
 string EndMultiplicity(AssociationType association, int index, CodeGenerationTools code)
 {
-    return "System.Data.Entity.Core.Metadata.Edm.RelationshipMultiplicity." + association.AssociationEndMembers[index].RelationshipMultiplicity.ToString();
+    return code.CreateLiteral(association.AssociationEndMembers[index].RelationshipMultiplicity);
 }
 
 string EscapeEndTypeName(AssociationType association, int index, CodeGenerationTools code)

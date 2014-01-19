@@ -3,17 +3,12 @@
   <EntityContainer Name="ElijaModelStoreContainer">
     <EntitySet Name="Device" EntityType="ElijaModel.Store.Device" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User" EntityType="ElijaModel.Store.User" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="UserDevice" EntityType="ElijaModel.Store.UserDevice" store:Type="Tables" store:Schema="dbo" store:Name="UserDevice">
-      <DefiningQuery>SELECT 
-      [UserDevice].[UserId] AS [UserId], 
-      [UserDevice].[DeviceId] AS [DeviceId]
-      FROM [dbo].[UserDevice] AS [UserDevice]</DefiningQuery>
-    </EntitySet>
-    <AssociationSet Name="FK__UserDevic__Devic__32E0915F" Association="ElijaModel.Store.FK__UserDevic__Devic__32E0915F">
+    <EntitySet Name="UserDevice" EntityType="ElijaModel.Store.UserDevice" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__UserDevic__Devic__44FF419A" Association="ElijaModel.Store.FK__UserDevic__Devic__44FF419A">
       <End Role="Device" EntitySet="Device" />
       <End Role="UserDevice" EntitySet="UserDevice" />
     </AssociationSet>
-    <AssociationSet Name="FK__UserDevic__UserI__31EC6D26" Association="ElijaModel.Store.FK__UserDevic__UserI__31EC6D26">
+    <AssociationSet Name="FK__UserDevic__UserI__440B1D61" Association="ElijaModel.Store.FK__UserDevic__UserI__440B1D61">
       <End Role="User" EntitySet="User" />
       <End Role="UserDevice" EntitySet="UserDevice" />
     </AssociationSet>
@@ -40,9 +35,10 @@
   </EntityType>
   <EntityType Name="User">
     <Key>
-      <PropertyRef Name="FacebookId" />
+      <PropertyRef Name="UserId" />
     </Key>
-    <Property Name="FacebookId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="FacebookId" Type="bigint" />
     <Property Name="FirstName" Type="varchar" MaxLength="100" />
     <Property Name="LastName" Type="varchar" MaxLength="100" />
     <Property Name="Age" Type="int" />
@@ -57,9 +53,6 @@
     <Property Name="Address" Type="varchar" MaxLength="255" />
     <Property Name="RegistrationDate" Type="datetime" />
   </EntityType>
-  <!--Se encontraron errores durante la generación:
-      advertencia 6002: La tabla o vista 'Elija.dbo.UserDevice' no tiene ninguna clave principal definida. Se ha inferido la clave y la definición se creó como vista o tabla de solo lectura.
-      -->
   <EntityType Name="UserDevice">
     <Key>
       <PropertyRef Name="UserId" />
@@ -67,8 +60,10 @@
     </Key>
     <Property Name="UserId" Type="bigint" Nullable="false" />
     <Property Name="DeviceId" Type="bigint" Nullable="false" />
+    <Property Name="CreatedAt" Type="datetime" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK__UserDevic__Devic__32E0915F">
+  <Association Name="FK__UserDevic__Devic__44FF419A">
     <End Role="Device" Type="ElijaModel.Store.Device" Multiplicity="1" />
     <End Role="UserDevice" Type="ElijaModel.Store.UserDevice" Multiplicity="*" />
     <ReferentialConstraint>
@@ -80,12 +75,12 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__UserDevic__UserI__31EC6D26">
+  <Association Name="FK__UserDevic__UserI__440B1D61">
     <End Role="User" Type="ElijaModel.Store.User" Multiplicity="1" />
     <End Role="UserDevice" Type="ElijaModel.Store.UserDevice" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
-        <PropertyRef Name="FacebookId" />
+        <PropertyRef Name="UserId" />
       </Principal>
       <Dependent Role="UserDevice">
         <PropertyRef Name="UserId" />
