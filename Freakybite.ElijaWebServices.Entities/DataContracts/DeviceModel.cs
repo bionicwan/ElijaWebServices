@@ -4,7 +4,7 @@
     {
         public int DeviceId { get; set; }
 
-        public string Imei { get; set; }
+        public long Imei { get; set; }
 
         public string Brand { get; set; }
 

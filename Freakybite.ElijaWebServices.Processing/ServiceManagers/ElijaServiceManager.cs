@@ -1,15 +1,11 @@
 ﻿using System;
-
-using Freakybite.ElijaWebServices.Entities;
+using System.Globalization;
+using Freakybite.ElijaWebServices.DataAccess.Model;
+using Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations;
+using Freakybite.ElijaWebServices.Entities.DataContracts;
 
 namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 {
-    using System.Globalization;
-
-    using DataAccess.Model;
-    using DataAccess.Repositories.Implementations;
-    using Entities.DataContracts;
-
     public class ElijaServiceManager
     {
         #region Fields
@@ -17,10 +13,8 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         private readonly DbContextFactory context = new DbContextFactory();
 
         private DeviceRepository deviceRepository;
-
-        private UserRepository userRepository;
-
         private UserDeviceRepository userDeviceRepository;
+        private UserRepository userRepository;
 
         #endregion
 
@@ -30,9 +24,9 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         {
             get
             {
-                if (this.userRepository == null)
+                if (userRepository == null)
                 {
-                    this.userRepository = new UserRepository(context);
+                    userRepository = new UserRepository(context);
                 }
 
                 return userRepository;
@@ -43,9 +37,9 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         {
             get
             {
-                if (this.userDeviceRepository == null)
+                if (userDeviceRepository == null)
                 {
-                    this.userDeviceRepository = new UserDeviceRepository(context);
+                    userDeviceRepository = new UserDeviceRepository(context);
                 }
 
                 return userDeviceRepository;
@@ -56,9 +50,9 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         {
             get
             {
-                if (this.deviceRepository == null)
+                if (deviceRepository == null)
                 {
-                    this.deviceRepository = new DeviceRepository(context);
+                    deviceRepository = new DeviceRepository(context);
                 }
 
                 return deviceRepository;
@@ -70,13 +64,13 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         #region Public Methods and Operators
 
         /// <summary>
-        /// Registers a new user into the Data Base.
+        ///     Registers a new user into the Data Base.
         /// </summary>
         /// <param name="userDevice"></param>
         /// <returns></returns>
         public Result RegisterUser(UserDeviceModel userDevice)
         {
-            var result = new Result() {Success = true};
+            var result = new Result {Success = true};
             DateTime dateOfBirth;
             DateTime registrationDate;
 
@@ -88,11 +82,11 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             }
 
             if (!DateTime.TryParseExact(
-                        userDevice.Birthday,
-                        "yyyy-MM-dd",
-                        CultureInfo.InvariantCulture,
-                        DateTimeStyles.None,
-                        out dateOfBirth))
+                userDevice.Birthday,
+                "yyyy-MM-dd",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out dateOfBirth))
             {
                 result.Success = false;
                 result.Message = "The date of birth is in the wrong format.";
@@ -109,9 +103,10 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             try
             {
                 var userDb = UserRepository.FindFirstBy(e => e.FacebookId == userDevice.FacebookId);
+                Guid userToken;
                 if (userDb == null)
                 {
-                    InsertNewUser(userDevice, dateOfBirth, registrationDate);
+                    userToken = InsertNewUser(userDevice, dateOfBirth, registrationDate);
                 }
                 else
                 {
@@ -122,7 +117,11 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                     {
                         InsertNewDevice(userDb, userDevice, registrationDate);
                     }
+
+                    userToken = userDb.Token;
                 }
+
+                result.Content = "{\"UserToken\": \"" + userToken.ToString().ToUpper() + "\"}";
             }
             catch (Exception)
             {
@@ -133,69 +132,19 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             return result;
         }
 
-        /// <summary>
-        /// Registers a new device into the Data Base.
-        /// </summary>
-        /// <param name="device"></param>
-        /// <returns></returns>
-        public Result RegisterDevice(DeviceModel device)
+        public User FindUserByToken(Guid token)
         {
-            var result = new Result() {Success = true};
+            var user = UserRepository.FindFirstBy(e => e.Token == token);
 
-            if (device == null)
-            {
-                result.Success = false;
-                result.Message = "El dispositivo no puede ser nulo.";
-                return result;
-            }
-
-            try
-            {
-                var deviceDb = DeviceRepository.FindFirstBy(e => e.IMEI == device.Imei);
-                if (deviceDb == null)
-                {
-                    deviceDb = new Device
-                    {
-                        IMEI = device.Imei,
-                        Brand = device.Brand,
-                        Device1 = device.Device,
-                        Display = device.Display,
-                        Manufacturer = device.Manufacturer,
-                        Model = device.Model,
-                        Operator = device.Operator,
-                        OsVersion = device.OsVersion,
-                        Product = device.Product,
-                        ReleaseVersion = device.ReleaseVersion,
-                        CodeVersion = device.CodeVersion,
-                        AndroidId = device.AndroidId,
-                        IsPhone = device.IsPhone
-                    };
-
-                    DateTime registrationDate;
-
-                    if (DateTime.TryParse(device.RegistrationDate, out registrationDate))
-                    {
-                        deviceDb.RegistrationDate = registrationDate;
-                    }
-
-                    DeviceRepository.Add(deviceDb);
-                    DeviceRepository.Save();
-                }
-            }
-            catch (Exception)
-            {
-                result.Success = false;
-                result.Message = "No se pudo realizar la operación.";
-            }
-
-            return result;
+            return user;
         }
 
         #endregion
 
-        private void InsertNewUser(UserDeviceModel user, DateTime dateOfBirth, DateTime registrationDate)
+        private Guid InsertNewUser(UserDeviceModel user, DateTime dateOfBirth, DateTime registrationDate)
         {
             var userDevice = new UserDevice();
+            var userToken = Guid.NewGuid();
             var maxUserId = 1L;
             var userId = UserRepository.MaxEntity();
             if (userId != null)
@@ -215,7 +164,8 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 FacebookLink = user.FacebookLink,
                 Address = user.Address,
                 Birthday = dateOfBirth,
-                RegistrationDate = registrationDate
+                RegistrationDate = registrationDate,
+                Token = userToken
             };
 
             var maxDeviceId = 1L;
@@ -249,12 +199,14 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
             UserDeviceRepository.Add(userDevice);
             UserDeviceRepository.Save();
+
+            return userDevice.User.Token;
         }
 
         private void InsertNewDevice(User user, UserDeviceModel userDevice, DateTime registrationDate)
         {
-            var maxDeviceId = 1L;
-            var deviceId = DeviceRepository.MaxEntity();
+            long maxDeviceId = 1L;
+            Device deviceId = DeviceRepository.MaxEntity();
             if (deviceId != null)
             {
                 maxDeviceId = maxDeviceId + deviceId.DeviceId;

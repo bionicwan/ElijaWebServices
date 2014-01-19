@@ -170,32 +170,28 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         /// Crear un nuevo objeto Device.
         /// </summary>
         /// <param name="deviceId">Valor inicial de la propiedad DeviceId.</param>
-        /// <param name="iMEI">Valor inicial de la propiedad IMEI.</param>
         /// <param name="brand">Valor inicial de la propiedad Brand.</param>
         /// <param name="device1">Valor inicial de la propiedad Device1.</param>
         /// <param name="display">Valor inicial de la propiedad Display.</param>
         /// <param name="manufacturer">Valor inicial de la propiedad Manufacturer.</param>
         /// <param name="model">Valor inicial de la propiedad Model.</param>
         /// <param name="product">Valor inicial de la propiedad Product.</param>
-        /// <param name="operator">Valor inicial de la propiedad Operator.</param>
         /// <param name="androidId">Valor inicial de la propiedad AndroidId.</param>
         /// <param name="osVersion">Valor inicial de la propiedad OsVersion.</param>
         /// <param name="codeVersion">Valor inicial de la propiedad CodeVersion.</param>
         /// <param name="releaseVersion">Valor inicial de la propiedad ReleaseVersion.</param>
         /// <param name="isPhone">Valor inicial de la propiedad IsPhone.</param>
         /// <param name="registrationDate">Valor inicial de la propiedad RegistrationDate.</param>
-        public static Device CreateDevice(global::System.Int64 deviceId, global::System.String iMEI, global::System.String brand, global::System.String device1, global::System.String display, global::System.String manufacturer, global::System.String model, global::System.String product, global::System.String @operator, global::System.String androidId, global::System.String osVersion, global::System.String codeVersion, global::System.String releaseVersion, global::System.Boolean isPhone, global::System.DateTime registrationDate)
+        public static Device CreateDevice(global::System.Int64 deviceId, global::System.String brand, global::System.String device1, global::System.String display, global::System.String manufacturer, global::System.String model, global::System.String product, global::System.String androidId, global::System.String osVersion, global::System.String codeVersion, global::System.String releaseVersion, global::System.Boolean isPhone, global::System.DateTime registrationDate)
         {
             Device device = new Device();
             device.DeviceId = deviceId;
-            device.IMEI = iMEI;
             device.Brand = brand;
             device.Device1 = device1;
             device.Display = display;
             device.Manufacturer = manufacturer;
             device.Model = model;
             device.Product = product;
-            device.Operator = @operator;
             device.AndroidId = androidId;
             device.OsVersion = osVersion;
             device.CodeVersion = codeVersion;
@@ -239,9 +235,9 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String IMEI
+        public Nullable<global::System.Int64> IMEI
         {
             get
             {
@@ -251,13 +247,13 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
             {
                 OnIMEIChanging(value);
                 ReportPropertyChanging("IMEI");
-                _IMEI = StructuralObject.SetValidValue(value, false);
+                _IMEI = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("IMEI");
                 OnIMEIChanged();
             }
         }
-        private global::System.String _IMEI;
-        partial void OnIMEIChanging(global::System.String value);
+        private Nullable<global::System.Int64> _IMEI;
+        partial void OnIMEIChanging(Nullable<global::System.Int64> value);
         partial void OnIMEIChanged();
     
         /// <summary>
@@ -407,7 +403,7 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         /// <summary>
         /// No hay documentación de metadatos disponible.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
         public global::System.String Operator
         {
@@ -419,7 +415,7 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
             {
                 OnOperatorChanging(value);
                 ReportPropertyChanging("Operator");
-                _Operator = StructuralObject.SetValidValue(value, false);
+                _Operator = StructuralObject.SetValidValue(value, true);
                 ReportPropertyChanged("Operator");
                 OnOperatorChanged();
             }
@@ -616,10 +612,12 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         /// Crear un nuevo objeto User.
         /// </summary>
         /// <param name="userId">Valor inicial de la propiedad UserId.</param>
-        public static User CreateUser(global::System.Int64 userId)
+        /// <param name="token">Valor inicial de la propiedad Token.</param>
+        public static User CreateUser(global::System.Int64 userId, global::System.Guid token)
         {
             User user = new User();
             user.UserId = userId;
+            user.Token = token;
             return user;
         }
 
@@ -989,6 +987,30 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         private Nullable<global::System.DateTime> _RegistrationDate;
         partial void OnRegistrationDateChanging(Nullable<global::System.DateTime> value);
         partial void OnRegistrationDateChanged();
+    
+        /// <summary>
+        /// No hay documentación de metadatos disponible.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid Token
+        {
+            get
+            {
+                return _Token;
+            }
+            set
+            {
+                OnTokenChanging(value);
+                ReportPropertyChanging("Token");
+                _Token = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Token");
+                OnTokenChanged();
+            }
+        }
+        private global::System.Guid _Token;
+        partial void OnTokenChanging(global::System.Guid value);
+        partial void OnTokenChanged();
 
         #endregion
 

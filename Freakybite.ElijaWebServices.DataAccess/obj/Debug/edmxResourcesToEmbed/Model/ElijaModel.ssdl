@@ -18,14 +18,14 @@
       <PropertyRef Name="DeviceId" />
     </Key>
     <Property Name="DeviceId" Type="bigint" Nullable="false" />
-    <Property Name="IMEI" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="IMEI" Type="bigint" />
     <Property Name="Brand" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Device" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Display" Type="varchar" Nullable="false" MaxLength="10" />
     <Property Name="Manufacturer" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Model" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Product" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Operator" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Operator" Type="varchar" MaxLength="50" />
     <Property Name="AndroidId" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="OsVersion" Type="varchar" Nullable="false" MaxLength="20" />
     <Property Name="CodeVersion" Type="varchar" Nullable="false" MaxLength="20" />
@@ -52,6 +52,7 @@
     <Property Name="City" Type="varchar" MaxLength="50" />
     <Property Name="Address" Type="varchar" MaxLength="255" />
     <Property Name="RegistrationDate" Type="datetime" />
+    <Property Name="Token" Type="uniqueidentifier" Nullable="false" />
   </EntityType>
   <EntityType Name="UserDevice">
     <Key>

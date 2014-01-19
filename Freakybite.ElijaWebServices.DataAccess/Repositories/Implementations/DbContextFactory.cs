@@ -1,16 +1,15 @@
 ﻿using System;
+using Freakybite.ElijaWebServices.DataAccess.Model;
+using Freakybite.ElijaWebServices.DataAccess.Repositories.Interfaces;
 
 namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
 {
-    using Model;
-    using Interfaces;
-
     public class DbContextFactory : IDbContextFactory
     {
         #region Fields
 
         /// <summary>
-        /// The _context.
+        ///     The _context.
         /// </summary>
         private readonly ElijaEntities context;
 
@@ -19,11 +18,11 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbContextFactory"/> class.
+        ///     Initializes a new instance of the <see cref="DbContextFactory" /> class.
         /// </summary>
         public DbContextFactory()
         {
-            this.context = new ElijaEntities();
+            context = new ElijaEntities();
         }
 
         #endregion
@@ -31,27 +30,27 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         #region Public Methods and Operators
 
         /// <summary>
-        /// The dispose.
+        ///     The dispose.
         /// </summary>
         /// Finalize context.
         public void Dispose()
         {
-            if (this.context != null)
+            if (context != null)
             {
-                this.context.Dispose();
+                context.Dispose();
                 GC.SuppressFinalize(this);
             }
         }
 
         /// <summary>
-        /// The get database context.
+        ///     The get database context.
         /// </summary>
         /// <returns>
-        /// The <see cref="ElijaContext"/>.
+        ///     The <see cref="ElijaContext" />.
         /// </returns>
         public ElijaEntities GetDbContext()
         {
-            return this.context;
+            return context;
         }
 
         #endregion

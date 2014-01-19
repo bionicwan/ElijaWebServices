@@ -23,14 +23,14 @@
             <PropertyRef Name="DeviceId" />
           </Key>
           <Property Name="DeviceId" Type="bigint" Nullable="false" />
-          <Property Name="IMEI" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="IMEI" Type="bigint" />
           <Property Name="Brand" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Device" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Display" Type="varchar" Nullable="false" MaxLength="10" />
           <Property Name="Manufacturer" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Model" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Product" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Operator" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Operator" Type="varchar" MaxLength="50" />
           <Property Name="AndroidId" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="OsVersion" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="CodeVersion" Type="varchar" Nullable="false" MaxLength="20" />
@@ -57,6 +57,7 @@
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="Address" Type="varchar" MaxLength="255" />
           <Property Name="RegistrationDate" Type="datetime" />
+          <Property Name="Token" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="UserDevice">
           <Key>
@@ -115,14 +116,14 @@
             <PropertyRef Name="DeviceId" />
           </Key>
           <Property Name="DeviceId" Type="Int64" Nullable="false" />
-          <Property Name="IMEI" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="IMEI" Type="Int64" />
           <Property Name="Brand" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Device1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Display" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="Manufacturer" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Model" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Product" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Operator" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Operator" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="AndroidId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="OsVersion" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
           <Property Name="CodeVersion" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
@@ -150,6 +151,7 @@
           <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Address" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
           <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
+          <Property Name="Token" Type="Guid" Nullable="false" />
           <NavigationProperty Name="UserDevice" Relationship="ElijaModel.FK__UserDevic__UserI__440B1D61" FromRole="User" ToRole="UserDevice" />
         </EntityType>
         <EntityType Name="UserDevice">
@@ -233,6 +235,7 @@
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

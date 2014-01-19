@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ValidationHelper.cs" />
     <Compile Include="ServiceManagers\ElijaServiceManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

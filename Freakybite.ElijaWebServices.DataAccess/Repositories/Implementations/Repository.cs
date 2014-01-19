@@ -1,25 +1,23 @@
 ﻿using System;
+using System.Data;
+using System.Data.Objects;
 using System.Linq;
+using System.Linq.Expressions;
+using Freakybite.ElijaWebServices.DataAccess.Model;
+using Freakybite.ElijaWebServices.DataAccess.Repositories.Interfaces;
 
 namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
 {
-    using System.Data;
-    using System.Data.Objects;
-    using System.Linq.Expressions;
-
-    using Freakybite.ElijaWebServices.DataAccess.Model;
-    using Freakybite.ElijaWebServices.DataAccess.Repositories.Interfaces;
-
     public abstract class Repository<T> : IRepository<T>
         where T : class
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Repository{T}"/> class.
+        ///     Initializes a new instance of the <see cref="Repository{T}" /> class.
         /// </summary>
         /// <param name="contextFactory">
-        /// The database context factory.
+        ///     The database context factory.
         /// </param>
         protected Repository(IDbContextFactory contextFactory)
         {
@@ -31,22 +29,22 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the context.
+        ///     Gets or sets the context.
         /// </summary>
         /// <value>
-        /// The context.
+        ///     The context.
         /// </value>
-        public ElijaEntities Context{ get; set; }
+        public ElijaEntities Context { get; set; }
 
         #endregion
 
         #region Public Methods and Operators
 
         /// <summary>
-        /// The add.
+        ///     The add.
         /// </summary>
         /// <param name="entity">
-        /// The entity.
+        ///     The entity.
         /// </param>
         public void Add(T entity)
         {
@@ -54,10 +52,10 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The count.
+        ///     The count.
         /// </summary>
         /// <returns>
-        /// The <see cref="int"/>.
+        ///     The <see cref="int" />.
         /// </returns>
         public int Count()
         {
@@ -65,10 +63,10 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The delete.
+        ///     The delete.
         /// </summary>
         /// <param name="entity">
-        /// The entity.
+        ///     The entity.
         /// </param>
         public void Delete(T entity)
         {
@@ -76,7 +74,7 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The dispose.
+        ///     The dispose.
         /// </summary>
         public void Dispose()
         {
@@ -87,37 +85,37 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The find all by.
+        ///     The find all by.
         /// </summary>
         /// <param name="predicate">
-        /// The predicate.
+        ///     The predicate.
         /// </param>
         /// <param name="include">
-        /// The include.
+        ///     The include.
         /// </param>
         /// <returns>
-        /// The <see cref="IQueryable"/>.
+        ///     The <see cref="IQueryable" />.
         /// </returns>
         public IQueryable<T> FindAllBy(Expression<Func<T, bool>> predicate, string[] include)
         {
-            var objset = Context.CreateObjectSet<T>();
+            ObjectSet<T> objset = Context.CreateObjectSet<T>();
             var query = objset as ObjectQuery<T>;
             if (include != null)
             {
                 query = include.Aggregate(query, (current, navprop) => current.Include(navprop));
             }
 
-            return query.Where(predicate).AsQueryable<T>();
+            return query.Where(predicate).AsQueryable();
         }
 
         /// <summary>
-        /// The find first by.
+        ///     The find first by.
         /// </summary>
         /// <param name="predicate">
-        /// The predicate.
+        ///     The predicate.
         /// </param>
         /// <returns>
-        /// The <see cref="T"/>.
+        ///     The <see cref="T" />.
         /// </returns>
         public T FindFirstBy(Expression<Func<T, bool>> predicate)
         {
@@ -125,10 +123,10 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The get all.
+        ///     The get all.
         /// </summary>
         /// <returns>
-        /// The <see cref="IQueryable"/>.
+        ///     The <see cref="IQueryable" />.
         /// </returns>
         public IQueryable<T> GetAll()
         {
@@ -136,31 +134,10 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The get all.
-        /// </summary>
-        /// <param name="include">
-        /// The include.
-        /// </param>
-        /// <returns>
-        /// The <see cref="IQueryable"/>.
-        /// </returns>
-        public IQueryable<T> GetAll(string[] include)
-        {
-            var objset = Context.CreateObjectSet<T>();
-            var query = objset as ObjectQuery<T>;
-            if (include != null)
-            {
-                query = include.Aggregate(query, (current, navprop) => current.Include(navprop));
-            }
-
-            return query.AsQueryable();
-        }
-
-        /// <summary>
-        /// The max entity.
+        ///     The max entity.
         /// </summary>
         /// <returns>
-        /// The <see cref="T"/>.
+        ///     The <see cref="T" />.
         /// </returns>
         public T MaxEntity()
         {
@@ -175,10 +152,10 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The refresh.
+        ///     The refresh.
         /// </summary>
         /// <param name="entity">
-        /// The entity.
+        ///     The entity.
         /// </param>
         public void Refresh(T entity)
         {
@@ -186,10 +163,10 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The save.
+        ///     The save.
         /// </summary>
         /// <returns>
-        /// The <see cref="int"/>.
+        ///     The <see cref="int" />.
         /// </returns>
         public int Save()
         {
@@ -197,14 +174,35 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// The update.
+        ///     The update.
         /// </summary>
         /// <param name="entity">
-        /// The entity.
+        ///     The entity.
         /// </param>
         public void Update(T entity)
         {
             Context.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
+        }
+
+        /// <summary>
+        ///     The get all.
+        /// </summary>
+        /// <param name="include">
+        ///     The include.
+        /// </param>
+        /// <returns>
+        ///     The <see cref="IQueryable" />.
+        /// </returns>
+        public IQueryable<T> GetAll(string[] include)
+        {
+            ObjectSet<T> objset = Context.CreateObjectSet<T>();
+            var query = objset as ObjectQuery<T>;
+            if (include != null)
+            {
+                query = include.Aggregate(query, (current, navprop) => current.Include(navprop));
+            }
+
+            return query.AsQueryable();
         }
 
         #endregion

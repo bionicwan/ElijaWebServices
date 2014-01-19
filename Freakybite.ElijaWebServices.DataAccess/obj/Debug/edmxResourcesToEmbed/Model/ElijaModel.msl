@@ -40,6 +40,7 @@
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="Token" ColumnName="Token" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
