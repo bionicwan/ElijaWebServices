@@ -1,0 +1,7 @@
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\bin\Debug\Freakybite.ElijaWebServices.Core.dll
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\bin\Debug\Freakybite.ElijaWebServices.Core.pdb
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\bin\Debug\Freakybite.ElijaWebServices.DataAccess.dll
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\bin\Debug\Freakybite.ElijaWebServices.DataAccess.pdb
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\obj\Debug\Freakybite.ElijaWebServices.Core.csprojResolveAssemblyReference.cache
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\obj\Debug\Freakybite.ElijaWebServices.Core.dll
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\obj\Debug\Freakybite.ElijaWebServices.Core.pdb

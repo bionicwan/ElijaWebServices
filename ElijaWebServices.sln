@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freakybite.ElijaWebServices
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freakybite.ElijaWebServices.Entities", "Freakybite.ElijaWebServices.Entities\Freakybite.ElijaWebServices.Entities.csproj", "{048E5A16-EF0E-4D81-A143-9438BAE0508C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Freakybite.ElijaWebServices.Core", "Freakybite.ElijaWebServices.Core\Freakybite.ElijaWebServices.Core.csproj", "{3A2405E4-E340-4BFC-BB37-B01DB68050EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{048E5A16-EF0E-4D81-A143-9438BAE0508C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{048E5A16-EF0E-4D81-A143-9438BAE0508C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{048E5A16-EF0E-4D81-A143-9438BAE0508C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A2405E4-E340-4BFC-BB37-B01DB68050EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A2405E4-E340-4BFC-BB37-B01DB68050EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A2405E4-E340-4BFC-BB37-B01DB68050EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A2405E4-E340-4BFC-BB37-B01DB68050EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -70,7 +70,9 @@
     <Compile Include="ElijaWebServices.svc.cs">
       <DependentUpon>ElijaWebServices.svc</DependentUpon>
     </Compile>
+    <Compile Include="ErrorServiceBehavior.cs" />
     <Compile Include="IElijaWebServices.cs" />
+    <Compile Include="JsonErrorHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +87,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Freakybite.ElijaWebServices.Core\Freakybite.ElijaWebServices.Core.csproj">
+      <Project>{3a2405e4-e340-4bfc-bb37-b01db68050ef}</Project>
+      <Name>Freakybite.ElijaWebServices.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Freakybite.ElijaWebServices.Entities\Freakybite.ElijaWebServices.Entities.csproj">
       <Project>{048e5a16-ef0e-4d81-a143-9438bae0508c}</Project>
       <Name>Freakybite.ElijaWebServices.Entities</Name>

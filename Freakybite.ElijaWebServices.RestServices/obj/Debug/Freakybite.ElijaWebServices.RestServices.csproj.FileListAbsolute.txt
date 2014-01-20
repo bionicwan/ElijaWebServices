@@ -24,3 +24,5 @@ C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServic
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\obj\Debug\Freakybite.ElijaWebServices.RestServices.csprojResolveAssemblyReference.cache
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\obj\Debug\Freakybite.ElijaWebServices.RestServices.dll
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\obj\Debug\Freakybite.ElijaWebServices.RestServices.pdb
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\bin\Freakybite.ElijaWebServices.Core.dll
+C:\Users\Juan Carlos\Documents\Visual Studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\bin\Freakybite.ElijaWebServices.Core.pdb
