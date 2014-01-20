@@ -104,7 +104,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 }
 
                 //if the user and device are already registered, return the user's token.
-                result.Content = JsonConvert.SerializeObject(userDb.Token);
+                result.Content = userDb.Token.ToString();
                 result.Success = true;
             }
             catch (Exception ex)
@@ -178,8 +178,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             UserDeviceRepository.Add(userDeviceDb);
             userDeviceRepository.Save();
 
-            var json = JsonConvert.SerializeObject(userDb.Token);
-            result.Content = json;
+            result.Content = userDb.Token.ToString();
             result.Success = true;
 
             return result;
@@ -276,8 +275,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             UserDeviceRepository.Add(userDevice);
             UserDeviceRepository.Save();
 
-            var json = JsonConvert.SerializeObject(userDevice.User.Token);
-            result.Content = json;
+            result.Content = userDevice.User.Token.ToString();
             result.Success = true;
 
             return result;
