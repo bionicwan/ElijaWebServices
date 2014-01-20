@@ -9,17 +9,6 @@ namespace Freakybite.ElijaWebServices.RestServices
         #region Public Methods and Operators
 
         /// <summary>
-        /// Handles the registration of a new User.
-        /// </summary>
-        /// <returns></returns>
-        public Result UserRegistration(UserDeviceModel userDevice)
-        {
-            var service = new ElijaServiceManager();
-            var result = service.RegisterUser(userDevice);
-            return result;
-        }
-
-        /// <summary>
         /// Resizes an image from the specified url.
         /// </summary>
         /// <param name="url"></param>
@@ -28,6 +17,17 @@ namespace Freakybite.ElijaWebServices.RestServices
         {
             var service = new ElijaServiceManager();
             var result = service.ImageResize(url);
+            return result;
+        }
+
+        /// <summary>
+        /// Handles the registration of a new User.
+        /// </summary>
+        /// <returns></returns>
+        public Result UserRegistration(UserDeviceModel userDevice)
+        {
+            var service = new ElijaServiceManager();
+            var result = service.RegisterUser(userDevice);
             return result;
         }
 

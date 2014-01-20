@@ -7,6 +7,7 @@ using Freakybite.ElijaWebServices.Entities.DataContracts;
 namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 {
     using Freakybite.ElijaWebServices.Processing.Helpers;
+    using Freakybite.ElijaWebServices.Core.Resources;
 
     public class ElijaServiceManager
     {
@@ -66,6 +67,29 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         #region Public Methods and Operators
 
         /// <summary>
+        /// Handles the process of resizing an image.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public Result ImageResize(string url)
+        {
+            var result = new Result();
+            try
+            {
+                var image = ImageProcessingHelper.ResizeImage(url);
+                result.Content = image;
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = ex.InnerException.InnerException != null ? ex.InnerException.Message : ex.Message;
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Registers a new user into the platform. If it's a returning user, it logs them in and returns the user token.
         /// </summary>
         /// <param name="userDevice">
@@ -80,7 +104,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             if (userDevice == null)
             {
                 result.Success = false;
-                result.Message = "User information cannot be null.";
+                result.Message = ErrorMessages.NullUserError;
                 return result;
             }
 
@@ -110,30 +134,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = ex.InnerException.InnerException != null ? ex.InnerException.Message : ex.Message;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// Handles the process of resizing an image.
-        /// </summary>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public Result ImageResize(string url)
-        {
-            var result = new Result();
-            try
-            {
-                var image = ImageProcessingHelper.ResizeImage(url);
-                result.Content = image;
-                result.Success = true;
-            }
-            catch (Exception ex)
-            {
-                result.Success = false;
-                result.Message = ex.InnerException.InnerException != null ? ex.InnerException.Message : ex.Message;
+                result.Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
 
             return result;
@@ -157,7 +158,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             if (!DateTime.TryParse(userDevice.RegistrationDate, out registrationDate))
             {
                 result.Success = false;
-                result.Message = "The registration date is in the wrong format.";
+                result.Message = ErrorMessages.WrongRegistrationDateFormat;
                 return result;
             }
 
@@ -199,7 +200,14 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             };
 
             UserDeviceRepository.Add(userDeviceDb);
-            userDeviceRepository.Save();
+            var insertResult = UserDeviceRepository.Save();
+
+            // If something goes wrong, undo the change.
+            if (insertResult == 0)
+            {
+                DeviceRepository.Delete(device);
+                DeviceRepository.Save();
+            }
 
             result.Content = userDb.Token.ToString();
             result.Success = true;
@@ -216,7 +224,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         {
             var result = new Result();
             DateTime registrationDate;
-            var dateOfBirth = DateTime.MaxValue;
+            var dateOfBirth = DateTime.MinValue;
 
             if (!string.IsNullOrEmpty(user.Birthday))
             {
@@ -229,7 +237,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                         out dateOfBirth))
                 {
                     result.Success = false;
-                    result.Message = "The date of birth is in the wrong format.";
+                    result.Message = ErrorMessages.WrongDateOfBirthFormat;
                     return result;
                 }
             }
@@ -237,7 +245,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             if (!DateTime.TryParse(user.RegistrationDate, out registrationDate))
             {
                 result.Success = false;
-                result.Message = "The registration date is in the wrong format.";
+                result.Message = ErrorMessages.WrongRegistrationDateFormat;
                 return result;
             }
 
@@ -261,11 +269,17 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                                       Gender = user.Gender,
                                       FacebookLink = user.FacebookLink,
                                       Address = user.Address,
-                                      Birthday = dateOfBirth,
                                       RegistrationDate = registrationDate,
                                       Token = userToken
                                   };
 
+            // If the dateOfBirth field was included in the request assign it to the user's birthday field.
+            if (dateOfBirth != DateTime.MinValue)
+            {
+                userDevice.User.Birthday = dateOfBirth;
+            }
+
+            // Add the new device's information.
             var maxDeviceId = 1L;
             var deviceId = DeviceRepository.MaxEntity();
             if (deviceId != null)

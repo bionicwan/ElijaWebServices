@@ -53,6 +53,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Freakybite.ElijaWebServices.Core\Freakybite.ElijaWebServices.Core.csproj">
+      <Project>{3a2405e4-e340-4bfc-bb37-b01db68050ef}</Project>
+      <Name>Freakybite.ElijaWebServices.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Freakybite.ElijaWebServices.DataAccess\Freakybite.ElijaWebServices.DataAccess.csproj">
       <Project>{ca69c719-9966-4135-a200-4b9c14d0626f}</Project>
       <Name>Freakybite.ElijaWebServices.DataAccess</Name>

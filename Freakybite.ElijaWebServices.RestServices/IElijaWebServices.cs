@@ -11,14 +11,14 @@ namespace Freakybite.ElijaWebServices.RestServices
         #region Public Methods and Operators
 
         [OperationContract]
-        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare,
-            UriTemplate = "UserRegistration/")]
-        Result UserRegistration(UserDeviceModel userDevice);
-
-        [OperationContract]
         [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "ImageResize/?url={url}")]
         Result ImageResize(string url);
+
+        [OperationContract]
+        [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "UserRegistration/")]
+        Result UserRegistration(UserDeviceModel userDevice);
 
         #endregion
     }
