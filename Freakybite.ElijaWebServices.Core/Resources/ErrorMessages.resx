@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidUserToken" xml:space="preserve">
+    <value>The user token is not valid.</value>
+  </data>
   <data name="NullUserError" xml:space="preserve">
     <value>User cannot be null.</value>
+  </data>
+  <data name="UserTokenMissing" xml:space="preserve">
+    <value>The user token is missing.</value>
   </data>
   <data name="WrongDateOfBirthFormat" xml:space="preserve">
     <value>The date of birth has a wrong format.</value>

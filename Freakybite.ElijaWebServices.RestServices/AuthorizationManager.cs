@@ -2,6 +2,7 @@
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using Freakybite.ElijaWebServices.Processing.Helpers;
+using Freakybite.ElijaWebServices.Core.Resources;
 
 namespace Freakybite.ElijaWebServices.RestServices
 {
@@ -39,14 +40,14 @@ namespace Freakybite.ElijaWebServices.RestServices
 
                 if (token == null)
                 {
-                    throw new FaultException("User token missing.");
+                    throw new FaultException(ErrorMessages.UserTokenMissing);
                 }
 
                 var validationHelper = new ValidationHelper();
 
                 if (!validationHelper.ValidateToken(token))
                 {
-                    throw new FaultException("Invalid user token.");
+                    throw new FaultException(ErrorMessages.InvalidUserToken);
                 }
 
                 return true;

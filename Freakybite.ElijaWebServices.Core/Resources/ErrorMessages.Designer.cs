@@ -61,11 +61,29 @@ namespace Freakybite.ElijaWebServices.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The user token is not valid..
+        /// </summary>
+        public static string InvalidUserToken {
+            get {
+                return ResourceManager.GetString("InvalidUserToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User cannot be null..
         /// </summary>
         public static string NullUserError {
             get {
                 return ResourceManager.GetString("NullUserError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user token is missing..
+        /// </summary>
+        public static string UserTokenMissing {
+            get {
+                return ResourceManager.GetString("UserTokenMissing", resourceCulture);
             }
         }
         
