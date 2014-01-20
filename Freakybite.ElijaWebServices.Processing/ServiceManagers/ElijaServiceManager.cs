@@ -6,7 +6,7 @@ using Freakybite.ElijaWebServices.Entities.DataContracts;
 
 namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 {
-    using Newtonsoft.Json;
+    using Freakybite.ElijaWebServices.Processing.Helpers;
 
     public class ElijaServiceManager
     {
@@ -110,7 +110,30 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = ex.InnerException.Message ?? ex.Message;
+                result.Message = ex.InnerException.InnerException != null ? ex.InnerException.Message : ex.Message;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Handles the process of resizing an image.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public Result ImageResize(string url)
+        {
+            var result = new Result();
+            try
+            {
+                var image = ImageProcessingHelper.ResizeImage(url);
+                result.Content = image;
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result.Success = false;
+                result.Message = ex.InnerException.InnerException != null ? ex.InnerException.Message : ex.Message;
             }
 
             return result;
