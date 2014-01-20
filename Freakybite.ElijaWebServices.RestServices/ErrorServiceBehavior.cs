@@ -1,24 +1,34 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
-using System.ServiceModel.Description;
-using System.ServiceModel.Dispatcher;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Freakybite.ElijaWebServices.RestServices
 {
+    using System.Collections.ObjectModel;
+    using System.ServiceModel;
+    using System.ServiceModel.Channels;
+    using System.ServiceModel.Description;
+    using System.ServiceModel.Dispatcher;
+
     public class ErrorServiceBehavior : Attribute, IServiceBehavior  
     {
-        readonly Type _errorHandlerType;
+        #region Fields
+
+        Type errorHandlerType;
+
+        #endregion
+
+        #region Constructors and Destructors
 
         public ErrorServiceBehavior(Type errorHandlerType)
         {
-            _errorHandlerType = errorHandlerType;
+            this.errorHandlerType = errorHandlerType;
         }
 
-        public void Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
-        {           
-        }
+        #endregion
+
+        #region Public Methods and Operators
 
         public void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase, Collection<ServiceEndpoint> endpoints,
             BindingParameterCollection bindingParameters)
@@ -26,14 +36,21 @@ namespace Freakybite.ElijaWebServices.RestServices
         }
 
         public void ApplyDispatchBehavior(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
-        {
-            var errorHandler = (IErrorHandler)Activator.CreateInstance(_errorHandlerType);
+        {                        
+            IErrorHandler errorHandler;
+            errorHandler = (IErrorHandler)Activator.CreateInstance(errorHandlerType);
 
-            foreach (var channelDispatcherBase in serviceHostBase.ChannelDispatchers)
+            foreach (ChannelDispatcherBase channelDispatcherBase in serviceHostBase.ChannelDispatchers)
             {
-                var channelDispatcher = channelDispatcherBase as ChannelDispatcher;
+                ChannelDispatcher channelDispatcher = channelDispatcherBase as ChannelDispatcher;
                 channelDispatcher.ErrorHandlers.Add(errorHandler);
             }
         }
+
+        public void Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
+        {           
+        }
+
+        #endregion
     }
 }

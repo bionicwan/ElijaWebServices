@@ -134,6 +134,27 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
+        ///     The get all.
+        /// </summary>
+        /// <param name="include">
+        ///     The include.
+        /// </param>
+        /// <returns>
+        ///     The <see cref="IQueryable" />.
+        /// </returns>
+        public IQueryable<T> GetAll(string[] include)
+        {
+            ObjectSet<T> objset = Context.CreateObjectSet<T>();
+            var query = objset as ObjectQuery<T>;
+            if (include != null)
+            {
+                query = include.Aggregate(query, (current, navprop) => current.Include(navprop));
+            }
+
+            return query.AsQueryable();
+        }
+
+        /// <summary>
         ///     The max entity.
         /// </summary>
         /// <returns>
@@ -182,27 +203,6 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         public void Update(T entity)
         {
             Context.ObjectStateManager.ChangeObjectState(entity, EntityState.Modified);
-        }
-
-        /// <summary>
-        ///     The get all.
-        /// </summary>
-        /// <param name="include">
-        ///     The include.
-        /// </param>
-        /// <returns>
-        ///     The <see cref="IQueryable" />.
-        /// </returns>
-        public IQueryable<T> GetAll(string[] include)
-        {
-            ObjectSet<T> objset = Context.CreateObjectSet<T>();
-            var query = objset as ObjectQuery<T>;
-            if (include != null)
-            {
-                query = include.Aggregate(query, (current, navprop) => current.Include(navprop));
-            }
-
-            return query.AsQueryable();
         }
 
         #endregion

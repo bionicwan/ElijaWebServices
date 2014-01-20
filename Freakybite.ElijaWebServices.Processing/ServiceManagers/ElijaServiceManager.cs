@@ -6,6 +6,8 @@ using Freakybite.ElijaWebServices.Entities.DataContracts;
 
 namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 {
+    using Newtonsoft.Json;
+
     public class ElijaServiceManager
     {
         #region Fields
@@ -20,16 +22,16 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
         #region Public Properties
 
-        public UserRepository UserRepository
+        public DeviceRepository DeviceRepository
         {
             get
             {
-                if (userRepository == null)
+                if (deviceRepository == null)
                 {
-                    userRepository = new UserRepository(context);
+                    deviceRepository = new DeviceRepository(context);
                 }
 
-                return userRepository;
+                return deviceRepository;
             }
         }
 
@@ -46,16 +48,16 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             }
         }
 
-        public DeviceRepository DeviceRepository
+        public UserRepository UserRepository
         {
             get
             {
-                if (deviceRepository == null)
+                if (userRepository == null)
                 {
-                    deviceRepository = new DeviceRepository(context);
+                    userRepository = new UserRepository(context);
                 }
 
-                return deviceRepository;
+                return userRepository;
             }
         }
 
@@ -64,15 +66,16 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Registers a new user into the Data Base.
+        /// Registers a new user into the platform. If it's a returning user, it logs them in and returns the user token.
         /// </summary>
-        /// <param name="userDevice"></param>
-        /// <returns></returns>
+        /// <param name="userDevice">
+        /// Contains the necessary information about the user and their device to register them
+        /// into the platform.
+        /// </param>
+        /// <returns>If the process is successful, it returns the user's token inside the Content field.</returns>
         public Result RegisterUser(UserDeviceModel userDevice)
         {
-            var result = new Result {Success = true};
-            DateTime dateOfBirth;
-            DateTime registrationDate;
+            var result = new Result();
 
             if (userDevice == null)
             {
@@ -81,17 +84,52 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 return result;
             }
 
-            if (!DateTime.TryParseExact(
-                userDevice.Birthday,
-                "yyyy-MM-dd",
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out dateOfBirth))
+            try
+            {
+                // Check whether the user is registered in the Data Base.
+                var userDb = UserRepository.FindFirstBy(e => e.FacebookId == userDevice.FacebookId);
+                if (userDb == null)
+                {
+                    return InsertNewUser(userDevice);
+                }
+
+                // If it's a registered user who made the request but from a non registered device, create a new record for
+                // the new device.
+                var device =
+                    this.UserDeviceRepository.FindFirstBy(
+                        e => e.UserId == userDb.UserId && e.Device.AndroidId == userDevice.AndroidId);
+                if (device == null)
+                {
+                    return this.InsertNewDevice(userDb, userDevice);
+                }
+
+                //if the user and device are already registered, return the user's token.
+                result.Content = JsonConvert.SerializeObject(userDb.Token);
+                result.Success = true;
+            }
+            catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = "The date of birth is in the wrong format.";
-                return result;
+                result.Message = ex.InnerException.Message ?? ex.Message;
             }
+
+            return result;
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// If the registration request comes from a registered user but with a new device, it registers it into the platform.
+        /// </summary>
+        /// <param name="userDb">The user's information that is already registered.</param>
+        /// <param name="userDevice">Information about the device from which the request was made.</param>
+        /// <returns>If the process is successful, it return the user's token inside the Content field.</returns>
+        private Result InsertNewDevice(User userDb, UserDeviceModel userDevice)
+        {
+            var result = new Result();
+            DateTime registrationDate;
 
             if (!DateTime.TryParse(userDevice.RegistrationDate, out registrationDate))
             {
@@ -100,113 +138,8 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 return result;
             }
 
-            try
-            {
-                var userDb = UserRepository.FindFirstBy(e => e.FacebookId == userDevice.FacebookId);
-                Guid userToken;
-                if (userDb == null)
-                {
-                    userToken = InsertNewUser(userDevice, dateOfBirth, registrationDate);
-                }
-                else
-                {
-                    var device =
-                        UserDeviceRepository.FindFirstBy(
-                            e => e.UserId == userDb.UserId && e.Device.AndroidId == userDevice.AndroidId);
-                    if (device == null)
-                    {
-                        InsertNewDevice(userDb, userDevice, registrationDate);
-                    }
-
-                    userToken = userDb.Token;
-                }
-
-                result.Content = "{\"UserToken\": \"" + userToken.ToString().ToUpper() + "\"}";
-            }
-            catch (Exception)
-            {
-                result.Success = false;
-                result.Message = "The operation was unsuccessful.";
-            }
-
-            return result;
-        }
-
-        public User FindUserByToken(Guid token)
-        {
-            var user = UserRepository.FindFirstBy(e => e.Token == token);
-
-            return user;
-        }
-
-        #endregion
-
-        private Guid InsertNewUser(UserDeviceModel user, DateTime dateOfBirth, DateTime registrationDate)
-        {
-            var userDevice = new UserDevice();
-            var userToken = Guid.NewGuid();
-            var maxUserId = 1L;
-            var userId = UserRepository.MaxEntity();
-            if (userId != null)
-            {
-                maxUserId = maxUserId + userId.UserId;
-            }
-            userDevice.User = new User
-            {
-                UserId = maxUserId,
-                FacebookId = user.FacebookId,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Age = user.Age,
-                City = user.City,
-                Email = user.Email,
-                Gender = user.Gender,
-                FacebookLink = user.FacebookLink,
-                Address = user.Address,
-                Birthday = dateOfBirth,
-                RegistrationDate = registrationDate,
-                Token = userToken
-            };
-
             var maxDeviceId = 1L;
             var deviceId = DeviceRepository.MaxEntity();
-            if (deviceId != null)
-            {
-                maxDeviceId = maxDeviceId + deviceId.DeviceId;
-            }
-
-            userDevice.Device = new Device
-            {
-                DeviceId = maxDeviceId,
-                IMEI = user.Imei,
-                AndroidId = user.AndroidId,
-                Brand = user.Brand,
-                CodeVersion = user.CodeVersion,
-                Device1 = user.Device,
-                Display = user.Display,
-                IsPhone = user.IsPhone,
-                Manufacturer = user.Manufacturer,
-                Model = user.Model,
-                Operator = user.Operator,
-                OsVersion = user.OsVersion,
-                Product = user.Product,
-                ReleaseVersion = user.ReleaseVersion,
-                RegistrationDate = registrationDate
-            };
-
-            userDevice.CreatedAt = DateTime.Now;
-            userDevice.LastActivityDate = DateTime.Now;
-
-            UserDeviceRepository.Add(userDevice);
-            UserDeviceRepository.Save();
-
-            return userDevice.User.Token;
-        }
-
-        private void InsertNewDevice(User user, UserDeviceModel userDevice, DateTime registrationDate)
-        {
-            long maxDeviceId = 1L;
-            Device deviceId = DeviceRepository.MaxEntity();
             if (deviceId != null)
             {
                 maxDeviceId = maxDeviceId + deviceId.DeviceId;
@@ -236,7 +169,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
             var userDeviceDb = new UserDevice
             {
-                UserId = user.UserId,
+                UserId = userDb.UserId,
                 DeviceId = device.DeviceId,
                 CreatedAt = DateTime.Now,
                 LastActivityDate = DateTime.Now
@@ -244,6 +177,112 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
             UserDeviceRepository.Add(userDeviceDb);
             userDeviceRepository.Save();
+
+            var json = JsonConvert.SerializeObject(userDb.Token);
+            result.Content = json;
+            result.Success = true;
+
+            return result;
         }
+
+        /// <summary>
+        /// Registers a new user into the platform.
+        /// </summary>
+        /// <param name="user">The new user's information.</param>
+        /// <returns>If the process is successful, it return the user's token inside the Content field.</returns>
+        private Result InsertNewUser(UserDeviceModel user)
+        {
+            var result = new Result();
+            DateTime registrationDate;
+            var dateOfBirth = DateTime.MaxValue;
+
+            if (!string.IsNullOrEmpty(user.Birthday))
+            {
+                if (
+                    !DateTime.TryParseExact(
+                        user.Birthday,
+                        "yyyy-MM-dd",
+                        CultureInfo.InvariantCulture,
+                        DateTimeStyles.None,
+                        out dateOfBirth))
+                {
+                    result.Success = false;
+                    result.Message = "The date of birth is in the wrong format.";
+                    return result;
+                }
+            }
+
+            if (!DateTime.TryParse(user.RegistrationDate, out registrationDate))
+            {
+                result.Success = false;
+                result.Message = "The registration date is in the wrong format.";
+                return result;
+            }
+
+            var userDevice = new UserDevice();
+            var userToken = Guid.NewGuid();
+            var maxUserId = 1L;
+            var userId = UserRepository.MaxEntity();
+            if (userId != null)
+            {
+                maxUserId = maxUserId + userId.UserId;
+            }
+            userDevice.User = new User
+                                  {
+                                      UserId = maxUserId,
+                                      FacebookId = user.FacebookId,
+                                      FirstName = user.FirstName,
+                                      LastName = user.LastName,
+                                      Age = user.Age,
+                                      City = user.City,
+                                      Email = user.Email,
+                                      Gender = user.Gender,
+                                      FacebookLink = user.FacebookLink,
+                                      Address = user.Address,
+                                      Birthday = dateOfBirth,
+                                      RegistrationDate = registrationDate,
+                                      Token = userToken
+                                  };
+
+            var maxDeviceId = 1L;
+            var deviceId = DeviceRepository.MaxEntity();
+            if (deviceId != null)
+            {
+                maxDeviceId = maxDeviceId + deviceId.DeviceId;
+            }
+
+            userDevice.Device = new Device
+                                    {
+                                        DeviceId = maxDeviceId,
+                                        IMEI = user.Imei,
+                                        AndroidId = user.AndroidId,
+                                        Brand = user.Brand,
+                                        CodeVersion = user.CodeVersion,
+                                        Device1 = user.Device,
+                                        Display = user.Display,
+                                        IsPhone = user.IsPhone,
+                                        Manufacturer = user.Manufacturer,
+                                        Model = user.Model,
+                                        Operator = user.Operator,
+                                        OsVersion = user.OsVersion,
+                                        Product = user.Product,
+                                        ReleaseVersion = user.ReleaseVersion,
+                                        RegistrationDate = registrationDate
+                                    };
+
+            userDevice.CreatedAt = DateTime.Now;
+            userDevice.LastActivityDate = DateTime.Now;
+
+            UserDeviceRepository.Add(userDevice);
+            UserDeviceRepository.Save();
+
+            var json = JsonConvert.SerializeObject(userDevice.User.Token);
+            result.Content = json;
+            result.Success = true;
+
+            return result;
+        }
+
+        #endregion
     }
 }

@@ -5,6 +5,8 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
 {
     public class DeviceRepository : Repository<Device>
     {
+        #region Constructors and Destructors
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="UserRepository" /> class.
         /// </summary>
@@ -15,5 +17,7 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
             : base(contextFactory)
         {
         }
+
+        #endregion
     }
 }

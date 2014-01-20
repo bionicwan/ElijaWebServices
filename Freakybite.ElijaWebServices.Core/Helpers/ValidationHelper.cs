@@ -5,9 +5,15 @@ namespace Freakybite.ElijaWebServices.Processing.Helpers
 {
     public class ValidationHelper
     {
+        #region Fields
+
         private readonly DbContextFactory context = new DbContextFactory();
 
         private UserRepository userRepository;
+
+        #endregion
+
+        #region Public Properties
 
         public UserRepository UserRepository
         {
@@ -22,6 +28,10 @@ namespace Freakybite.ElijaWebServices.Processing.Helpers
             }
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
         public bool ValidateToken(string userToken)
         {
             var token = new Guid();
@@ -35,5 +45,7 @@ namespace Freakybite.ElijaWebServices.Processing.Helpers
 
             return user != null;
         }
+
+        #endregion
     }
 }

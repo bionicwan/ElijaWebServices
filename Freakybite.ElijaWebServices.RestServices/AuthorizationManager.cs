@@ -5,6 +5,8 @@ using Freakybite.ElijaWebServices.Processing.Helpers;
 
 namespace Freakybite.ElijaWebServices.RestServices
 {
+    using System.IdentityModel.Tokens;
+
     public class AuthorizationManager : ServiceAuthorizationManager
     {
         #region Public Methods and Operators
@@ -25,15 +27,15 @@ namespace Freakybite.ElijaWebServices.RestServices
 
             try
             {
-                //if (
-                //    OperationContext.Current.IncomingMessageProperties["HttpOperationName"].ToString()
-                //        .ToLower()
-                //        .Equals("userregistration"))
-                //{
-                //    return true;
-                //}
+                if (
+                    OperationContext.Current.IncomingMessageProperties["HttpOperationName"].ToString()
+                        .ToLower()
+                        .Equals("userregistration"))
+                {
+                    return true;
+                }
 
-                string token = requestProperties.Headers["Token"];
+                var token = requestProperties.Headers["Token"];
 
                 if (token == null)
                 {
@@ -51,7 +53,7 @@ namespace Freakybite.ElijaWebServices.RestServices
             }
             catch (Exception e)
             {
-                throw new FaultException(e.Message);
+                throw new SecurityTokenException(e.Message);
             }
         }
 

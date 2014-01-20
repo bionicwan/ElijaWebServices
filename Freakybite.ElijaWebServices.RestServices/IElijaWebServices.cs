@@ -8,9 +8,13 @@ namespace Freakybite.ElijaWebServices.RestServices
     [ServiceContract]
     public interface IElijaWebServices
     {
+        #region Public Methods and Operators
+
         [OperationContract]
         [WebInvoke(Method = "POST", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare,
             UriTemplate = "UserRegistration/")]
         Result UserRegistration(UserDeviceModel userDevice);
+
+        #endregion
     }
 }
