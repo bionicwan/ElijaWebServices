@@ -4,11 +4,11 @@
     <EntitySet Name="Device" EntityType="ElijaModel.Store.Device" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User" EntityType="ElijaModel.Store.User" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UserDevice" EntityType="ElijaModel.Store.UserDevice" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK__UserDevic__Devic__44FF419A" Association="ElijaModel.Store.FK__UserDevic__Devic__44FF419A">
+    <AssociationSet Name="FK__UserDevic__Devic__4AB81AF0" Association="ElijaModel.Store.FK__UserDevic__Devic__4AB81AF0">
       <End Role="Device" EntitySet="Device" />
       <End Role="UserDevice" EntitySet="UserDevice" />
     </AssociationSet>
-    <AssociationSet Name="FK__UserDevic__UserI__440B1D61" Association="ElijaModel.Store.FK__UserDevic__UserI__440B1D61">
+    <AssociationSet Name="FK__UserDevic__UserI__49C3F6B7" Association="ElijaModel.Store.FK__UserDevic__UserI__49C3F6B7">
       <End Role="User" EntitySet="User" />
       <End Role="UserDevice" EntitySet="UserDevice" />
     </AssociationSet>
@@ -21,7 +21,7 @@
     <Property Name="IMEI" Type="bigint" />
     <Property Name="Brand" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Device" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Display" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="Display" Type="int" Nullable="false" />
     <Property Name="Manufacturer" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Model" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Product" Type="varchar" Nullable="false" MaxLength="50" />
@@ -56,15 +56,15 @@
   </EntityType>
   <EntityType Name="UserDevice">
     <Key>
-      <PropertyRef Name="UserId" />
-      <PropertyRef Name="DeviceId" />
+      <PropertyRef Name="UserDeviceId" />
     </Key>
+    <Property Name="UserDeviceId" Type="bigint" Nullable="false" />
     <Property Name="UserId" Type="bigint" Nullable="false" />
     <Property Name="DeviceId" Type="bigint" Nullable="false" />
     <Property Name="CreatedAt" Type="datetime" Nullable="false" />
     <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
   </EntityType>
-  <Association Name="FK__UserDevic__Devic__44FF419A">
+  <Association Name="FK__UserDevic__Devic__4AB81AF0">
     <End Role="Device" Type="ElijaModel.Store.Device" Multiplicity="1" />
     <End Role="UserDevice" Type="ElijaModel.Store.UserDevice" Multiplicity="*" />
     <ReferentialConstraint>
@@ -76,7 +76,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__UserDevic__UserI__440B1D61">
+  <Association Name="FK__UserDevic__UserI__49C3F6B7">
     <End Role="User" Type="ElijaModel.Store.User" Multiplicity="1" />
     <End Role="UserDevice" Type="ElijaModel.Store.UserDevice" Multiplicity="*" />
     <ReferentialConstraint>

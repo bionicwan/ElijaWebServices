@@ -4,16 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ElijaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ElijaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="ElijaModelStoreContainer">
           <EntitySet Name="Device" EntityType="ElijaModel.Store.Device" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="User" EntityType="ElijaModel.Store.User" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserDevice" EntityType="ElijaModel.Store.UserDevice" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK__UserDevic__Devic__44FF419A" Association="ElijaModel.Store.FK__UserDevic__Devic__44FF419A">
+          <AssociationSet Name="FK__UserDevic__Devic__4AB81AF0" Association="ElijaModel.Store.FK__UserDevic__Devic__4AB81AF0">
             <End Role="Device" EntitySet="Device" />
             <End Role="UserDevice" EntitySet="UserDevice" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserDevic__UserI__440B1D61" Association="ElijaModel.Store.FK__UserDevic__UserI__440B1D61">
+          <AssociationSet Name="FK__UserDevic__UserI__49C3F6B7" Association="ElijaModel.Store.FK__UserDevic__UserI__49C3F6B7">
             <End Role="User" EntitySet="User" />
             <End Role="UserDevice" EntitySet="UserDevice" />
           </AssociationSet>
@@ -26,7 +26,7 @@
           <Property Name="IMEI" Type="bigint" />
           <Property Name="Brand" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Device" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Display" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Display" Type="int" Nullable="false" />
           <Property Name="Manufacturer" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Model" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Product" Type="varchar" Nullable="false" MaxLength="50" />
@@ -61,15 +61,15 @@
         </EntityType>
         <EntityType Name="UserDevice">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="DeviceId" />
+            <PropertyRef Name="UserDeviceId" />
           </Key>
+          <Property Name="UserDeviceId" Type="bigint" Nullable="false" />
           <Property Name="UserId" Type="bigint" Nullable="false" />
           <Property Name="DeviceId" Type="bigint" Nullable="false" />
           <Property Name="CreatedAt" Type="datetime" Nullable="false" />
           <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__UserDevic__Devic__44FF419A">
+        <Association Name="FK__UserDevic__Devic__4AB81AF0">
           <End Role="Device" Type="ElijaModel.Store.Device" Multiplicity="1" />
           <End Role="UserDevice" Type="ElijaModel.Store.UserDevice" Multiplicity="*" />
           <ReferentialConstraint>
@@ -81,7 +81,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserDevic__UserI__440B1D61">
+        <Association Name="FK__UserDevic__UserI__49C3F6B7">
           <End Role="User" Type="ElijaModel.Store.User" Multiplicity="1" />
           <End Role="UserDevice" Type="ElijaModel.Store.UserDevice" Multiplicity="*" />
           <ReferentialConstraint>
@@ -93,8 +93,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ElijaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -102,11 +101,11 @@
           <EntitySet Name="Device" EntityType="ElijaModel.Device" />
           <EntitySet Name="User" EntityType="ElijaModel.User" />
           <EntitySet Name="UserDevice" EntityType="ElijaModel.UserDevice" />
-          <AssociationSet Name="FK__UserDevic__Devic__44FF419A" Association="ElijaModel.FK__UserDevic__Devic__44FF419A">
+          <AssociationSet Name="FK__UserDevic__Devic__4AB81AF0" Association="ElijaModel.FK__UserDevic__Devic__4AB81AF0">
             <End Role="Device" EntitySet="Device" />
             <End Role="UserDevice" EntitySet="UserDevice" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserDevic__UserI__440B1D61" Association="ElijaModel.FK__UserDevic__UserI__440B1D61">
+          <AssociationSet Name="FK__UserDevic__UserI__49C3F6B7" Association="ElijaModel.FK__UserDevic__UserI__49C3F6B7">
             <End Role="User" EntitySet="User" />
             <End Role="UserDevice" EntitySet="UserDevice" />
           </AssociationSet>
@@ -115,60 +114,60 @@
           <Key>
             <PropertyRef Name="DeviceId" />
           </Key>
-          <Property Name="DeviceId" Type="Int64" Nullable="false" />
-          <Property Name="IMEI" Type="Int64" />
-          <Property Name="Brand" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Device1" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Display" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="Manufacturer" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Model" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Product" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Operator" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="AndroidId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="OsVersion" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="CodeVersion" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="ReleaseVersion" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="IsPhone" Type="Boolean" Nullable="false" />
-          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="UserDevice" Relationship="ElijaModel.FK__UserDevic__Devic__44FF419A" FromRole="Device" ToRole="UserDevice" />
+          <Property Type="Int64" Name="DeviceId" Nullable="false" />
+          <Property Type="Int64" Name="IMEI" />
+          <Property Type="String" Name="Brand" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Device1" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Display" Nullable="false" />
+          <Property Type="String" Name="Manufacturer" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Model" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Product" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Operator" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="AndroidId" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="OsVersion" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="CodeVersion" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ReleaseVersion" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="IsPhone" Nullable="false" />
+          <Property Type="DateTime" Name="RegistrationDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserDevice" Relationship="ElijaModel.FK__UserDevic__Devic__4AB81AF0" FromRole="Device" ToRole="UserDevice" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="UserId" Type="Int64" Nullable="false" />
-          <Property Name="FacebookId" Type="Int64" />
-          <Property Name="FirstName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="LastName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="Age" Type="Int32" />
-          <Property Name="Birthday" Type="DateTime" Precision="0" />
-          <Property Name="Gender" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
-          <Property Name="FacebookLink" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
-          <Property Name="TelephoneHome" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="TelephoneOffice" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="TelephoneMobile" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
-          <Property Name="Email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
-          <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Address" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
-          <Property Name="RegistrationDate" Type="DateTime" Precision="3" />
-          <Property Name="Token" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="UserDevice" Relationship="ElijaModel.FK__UserDevic__UserI__440B1D61" FromRole="User" ToRole="UserDevice" />
+          <Property Type="Int64" Name="UserId" Nullable="false" />
+          <Property Type="Int64" Name="FacebookId" />
+          <Property Type="String" Name="FirstName" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="LastName" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="Age" />
+          <Property Type="DateTime" Name="Birthday" Precision="0" />
+          <Property Type="String" Name="Gender" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="FacebookLink" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TelephoneHome" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TelephoneOffice" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="TelephoneMobile" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Email" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="City" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Address" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="RegistrationDate" Precision="3" />
+          <Property Type="Guid" Name="Token" Nullable="false" />
+          <NavigationProperty Name="UserDevice" Relationship="ElijaModel.FK__UserDevic__UserI__49C3F6B7" FromRole="User" ToRole="UserDevice" />
         </EntityType>
         <EntityType Name="UserDevice">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="DeviceId" />
+            <PropertyRef Name="UserDeviceId" />
           </Key>
-          <Property Name="UserId" Type="Int64" Nullable="false" />
-          <Property Name="DeviceId" Type="Int64" Nullable="false" />
-          <Property Name="CreatedAt" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Device" Relationship="ElijaModel.FK__UserDevic__Devic__44FF419A" FromRole="UserDevice" ToRole="Device" />
-          <NavigationProperty Name="User" Relationship="ElijaModel.FK__UserDevic__UserI__440B1D61" FromRole="UserDevice" ToRole="User" />
+          <Property Type="Int64" Name="UserDeviceId" Nullable="false" />
+          <Property Type="Int64" Name="UserId" Nullable="false" />
+          <Property Type="Int64" Name="DeviceId" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedAt" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Device" Relationship="ElijaModel.FK__UserDevic__Devic__4AB81AF0" FromRole="UserDevice" ToRole="Device" />
+          <NavigationProperty Name="User" Relationship="ElijaModel.FK__UserDevic__UserI__49C3F6B7" FromRole="UserDevice" ToRole="User" />
         </EntityType>
-        <Association Name="FK__UserDevic__Devic__44FF419A">
-          <End Role="Device" Type="ElijaModel.Device" Multiplicity="1" />
-          <End Role="UserDevice" Type="ElijaModel.UserDevice" Multiplicity="*" />
+        <Association Name="FK__UserDevic__Devic__4AB81AF0">
+          <End Type="ElijaModel.Device" Role="Device" Multiplicity="1" />
+          <End Type="ElijaModel.UserDevice" Role="UserDevice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Device">
               <PropertyRef Name="DeviceId" />
@@ -178,9 +177,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserDevic__UserI__440B1D61">
-          <End Role="User" Type="ElijaModel.User" Multiplicity="1" />
-          <End Role="UserDevice" Type="ElijaModel.UserDevice" Multiplicity="*" />
+        <Association Name="FK__UserDevic__UserI__49C3F6B7">
+          <End Type="ElijaModel.User" Role="User" Multiplicity="1" />
+          <End Type="ElijaModel.UserDevice" Role="UserDevice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserId" />
@@ -190,7 +189,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -199,53 +198,54 @@
           <EntitySetMapping Name="Device">
             <EntityTypeMapping TypeName="ElijaModel.Device">
               <MappingFragment StoreEntitySet="Device">
-                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-                <ScalarProperty Name="IMEI" ColumnName="IMEI" />
-                <ScalarProperty Name="Brand" ColumnName="Brand" />
-                <ScalarProperty Name="Device1" ColumnName="Device" />
-                <ScalarProperty Name="Display" ColumnName="Display" />
-                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="Product" ColumnName="Product" />
-                <ScalarProperty Name="Operator" ColumnName="Operator" />
-                <ScalarProperty Name="AndroidId" ColumnName="AndroidId" />
-                <ScalarProperty Name="OsVersion" ColumnName="OsVersion" />
-                <ScalarProperty Name="CodeVersion" ColumnName="CodeVersion" />
-                <ScalarProperty Name="ReleaseVersion" ColumnName="ReleaseVersion" />
-                <ScalarProperty Name="IsPhone" ColumnName="IsPhone" />
                 <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="IsPhone" ColumnName="IsPhone" />
+                <ScalarProperty Name="ReleaseVersion" ColumnName="ReleaseVersion" />
+                <ScalarProperty Name="CodeVersion" ColumnName="CodeVersion" />
+                <ScalarProperty Name="OsVersion" ColumnName="OsVersion" />
+                <ScalarProperty Name="AndroidId" ColumnName="AndroidId" />
+                <ScalarProperty Name="Operator" ColumnName="Operator" />
+                <ScalarProperty Name="Product" ColumnName="Product" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+                <ScalarProperty Name="Display" ColumnName="Display" />
+                <ScalarProperty Name="Device1" ColumnName="Device" />
+                <ScalarProperty Name="Brand" ColumnName="Brand" />
+                <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="ElijaModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Age" ColumnName="Age" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
-                <ScalarProperty Name="TelephoneHome" ColumnName="TelephoneHome" />
-                <ScalarProperty Name="TelephoneOffice" ColumnName="TelephoneOffice" />
-                <ScalarProperty Name="TelephoneMobile" ColumnName="TelephoneMobile" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
                 <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="TelephoneMobile" ColumnName="TelephoneMobile" />
+                <ScalarProperty Name="TelephoneOffice" ColumnName="TelephoneOffice" />
+                <ScalarProperty Name="TelephoneHome" ColumnName="TelephoneHome" />
+                <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserDevice">
             <EntityTypeMapping TypeName="ElijaModel.UserDevice">
               <MappingFragment StoreEntitySet="UserDevice">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
                 <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+                <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserDeviceId" ColumnName="UserDeviceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -265,7 +265,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

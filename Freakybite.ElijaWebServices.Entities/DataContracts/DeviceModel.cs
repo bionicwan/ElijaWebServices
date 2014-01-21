@@ -14,7 +14,7 @@
 
         public int DeviceId { get; set; }
 
-        public string Display { get; set; }
+        public int Display { get; set; }
 
         public long Imei { get; set; }
 

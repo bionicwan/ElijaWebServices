@@ -4,53 +4,54 @@
     <EntitySetMapping Name="Device">
       <EntityTypeMapping TypeName="ElijaModel.Device">
         <MappingFragment StoreEntitySet="Device">
-          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
-          <ScalarProperty Name="Brand" ColumnName="Brand" />
-          <ScalarProperty Name="Device1" ColumnName="Device" />
-          <ScalarProperty Name="Display" ColumnName="Display" />
-          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
-          <ScalarProperty Name="Model" ColumnName="Model" />
-          <ScalarProperty Name="Product" ColumnName="Product" />
-          <ScalarProperty Name="Operator" ColumnName="Operator" />
-          <ScalarProperty Name="AndroidId" ColumnName="AndroidId" />
-          <ScalarProperty Name="OsVersion" ColumnName="OsVersion" />
-          <ScalarProperty Name="CodeVersion" ColumnName="CodeVersion" />
-          <ScalarProperty Name="ReleaseVersion" ColumnName="ReleaseVersion" />
-          <ScalarProperty Name="IsPhone" ColumnName="IsPhone" />
           <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="IsPhone" ColumnName="IsPhone" />
+          <ScalarProperty Name="ReleaseVersion" ColumnName="ReleaseVersion" />
+          <ScalarProperty Name="CodeVersion" ColumnName="CodeVersion" />
+          <ScalarProperty Name="OsVersion" ColumnName="OsVersion" />
+          <ScalarProperty Name="AndroidId" ColumnName="AndroidId" />
+          <ScalarProperty Name="Operator" ColumnName="Operator" />
+          <ScalarProperty Name="Product" ColumnName="Product" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Manufacturer" ColumnName="Manufacturer" />
+          <ScalarProperty Name="Display" ColumnName="Display" />
+          <ScalarProperty Name="Device1" ColumnName="Device" />
+          <ScalarProperty Name="Brand" ColumnName="Brand" />
+          <ScalarProperty Name="IMEI" ColumnName="IMEI" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="User">
       <EntityTypeMapping TypeName="ElijaModel.User">
         <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Age" ColumnName="Age" />
-          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
-          <ScalarProperty Name="TelephoneHome" ColumnName="TelephoneHome" />
-          <ScalarProperty Name="TelephoneOffice" ColumnName="TelephoneOffice" />
-          <ScalarProperty Name="TelephoneMobile" ColumnName="TelephoneMobile" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
-          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
           <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="TelephoneMobile" ColumnName="TelephoneMobile" />
+          <ScalarProperty Name="TelephoneOffice" ColumnName="TelephoneOffice" />
+          <ScalarProperty Name="TelephoneHome" ColumnName="TelephoneHome" />
+          <ScalarProperty Name="FacebookLink" ColumnName="FacebookLink" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserDevice">
       <EntityTypeMapping TypeName="ElijaModel.UserDevice">
         <MappingFragment StoreEntitySet="UserDevice">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
-          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
           <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+          <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
+          <ScalarProperty Name="DeviceId" ColumnName="DeviceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserDeviceId" ColumnName="UserDeviceId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

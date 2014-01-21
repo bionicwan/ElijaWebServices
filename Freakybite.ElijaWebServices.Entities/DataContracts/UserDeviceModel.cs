@@ -20,7 +20,7 @@
 
         public string Device { get; set; }
 
-        public string Display { get; set; }
+        public int Display { get; set; }
 
         public string Email { get; set; }
 
