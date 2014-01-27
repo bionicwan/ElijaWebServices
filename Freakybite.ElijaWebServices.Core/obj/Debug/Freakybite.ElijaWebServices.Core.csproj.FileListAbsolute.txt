@@ -14,3 +14,5 @@ C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServic
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.Core\obj\Debug\Freakybite.ElijaWebServices.Core.pdb
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.Core\obj\Debug\Freakybite.ElijaWebServices.Core.Resources.ErrorMessages.resources
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.Core\obj\Debug\Freakybite.ElijaWebServices.Core.csproj.GenerateResource.Cache
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\obj\Debug\Freakybite.ElijaWebServices.Core.Resources.ErrorMessages.resources
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Core\obj\Debug\Freakybite.ElijaWebServices.Core.csproj.GenerateResource.Cache
