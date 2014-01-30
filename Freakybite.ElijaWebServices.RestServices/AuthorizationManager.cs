@@ -3,6 +3,8 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using Freakybite.ElijaWebServices.Processing.Helpers;
 using Freakybite.ElijaWebServices.Core.Resources;
+using Freakybite.ElijaWebServices.Processing.ServiceManagers;
+using log4net;
 
 namespace Freakybite.ElijaWebServices.RestServices
 {
@@ -10,6 +12,8 @@ namespace Freakybite.ElijaWebServices.RestServices
 
     public class AuthorizationManager : ServiceAuthorizationManager
     {
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ElijaServiceManager));
+
         #region Public Methods and Operators
 
         /// <summary>
@@ -54,6 +58,7 @@ namespace Freakybite.ElijaWebServices.RestServices
             }
             catch (Exception e)
             {
+                logger.Info(e.Message);
                 throw new SecurityTokenException(e.Message);
             }
         }

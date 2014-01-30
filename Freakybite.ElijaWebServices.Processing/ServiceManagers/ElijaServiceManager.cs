@@ -3,6 +3,7 @@ using System.Globalization;
 using Freakybite.ElijaWebServices.DataAccess.Model;
 using Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations;
 using Freakybite.ElijaWebServices.Entities.DataContracts;
+using log4net;
 
 namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 {
@@ -18,6 +19,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
         private DeviceRepository deviceRepository;
         private UserDeviceRepository userDeviceRepository;
         private UserRepository userRepository;
+        private static readonly ILog logger = LogManager.GetLogger(typeof(ElijaServiceManager));
 
         #endregion
 
@@ -134,7 +136,8 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             catch (Exception ex)
             {
                 result.Success = false;
-                result.Message = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                result.Message = ErrorMessages.ErrorMessage;
+                logger.Error(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
 
             return result;

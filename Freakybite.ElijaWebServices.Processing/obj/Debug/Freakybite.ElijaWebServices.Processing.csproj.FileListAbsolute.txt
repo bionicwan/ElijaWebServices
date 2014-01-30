@@ -22,3 +22,11 @@ C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServic
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\ImageResizer.xml
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\Freakybite.ElijaWebServices.Core.dll
 C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\Freakybite.ElijaWebServices.Core.pdb
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\Freakybite.ElijaWebServices.Core.dll
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\ImageResizer.dll
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\Freakybite.ElijaWebServices.Core.pdb
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\ImageResizer.xml
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\log4net.dll
+C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.Processing\bin\Debug\log4net.xml
