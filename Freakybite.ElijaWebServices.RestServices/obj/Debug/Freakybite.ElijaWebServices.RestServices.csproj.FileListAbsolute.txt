@@ -34,3 +34,5 @@ C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Frea
 C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\bin\ImageResizer.xml
 C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\bin\log4net.dll
 C:\Users\Juan Carlos\documents\visual studio 2012\Projects\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\bin\log4net.xml
+C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\bin\log4net.dll
+C:\Users\Juan Carlos\Documents\GitHub\ElijaWebServices\Freakybite.ElijaWebServices.RestServices\bin\log4net.xml

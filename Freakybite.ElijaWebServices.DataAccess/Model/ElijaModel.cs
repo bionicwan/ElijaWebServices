@@ -19,6 +19,10 @@ using System.Xml.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
+[assembly: EdmRelationshipAttribute("ElijaModel", "FK__Article__Section__5EBF139D", "Section", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Freakybite.ElijaWebServices.DataAccess.Model.Section), "Article", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.Article), true)]
+[assembly: EdmRelationshipAttribute("ElijaModel", "FK__ArticleAs__Artic__693CA210", "Article", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Freakybite.ElijaWebServices.DataAccess.Model.Article), "ArticleAsset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.ArticleAsset), true)]
+[assembly: EdmRelationshipAttribute("ElijaModel", "FK__ArticleAs__Image__6A30C649", "Image", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Freakybite.ElijaWebServices.DataAccess.Model.Image), "ArticleAsset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.ArticleAsset), true)]
+[assembly: EdmRelationshipAttribute("ElijaModel", "FK__ArticleAs__Video__6B24EA82", "Video", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Freakybite.ElijaWebServices.DataAccess.Model.Video), "ArticleAsset", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.ArticleAsset), true)]
 [assembly: EdmRelationshipAttribute("ElijaModel", "FK__UserDevic__Devic__4AB81AF0", "Device", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Freakybite.ElijaWebServices.DataAccess.Model.Device), "UserDevice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.UserDevice), true)]
 [assembly: EdmRelationshipAttribute("ElijaModel", "FK__UserDevic__UserI__49C3F6B7", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Freakybite.ElijaWebServices.DataAccess.Model.User), "UserDevice", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Freakybite.ElijaWebServices.DataAccess.Model.UserDevice), true)]
 
@@ -75,6 +79,38 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<Article> Article
+        {
+            get
+            {
+                if ((_Article == null))
+                {
+                    _Article = base.CreateObjectSet<Article>("Article");
+                }
+                return _Article;
+            }
+        }
+        private ObjectSet<Article> _Article;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ArticleAsset> ArticleAsset
+        {
+            get
+            {
+                if ((_ArticleAsset == null))
+                {
+                    _ArticleAsset = base.CreateObjectSet<ArticleAsset>("ArticleAsset");
+                }
+                return _ArticleAsset;
+            }
+        }
+        private ObjectSet<ArticleAsset> _ArticleAsset;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Device> Device
         {
             get
@@ -87,6 +123,38 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
             }
         }
         private ObjectSet<Device> _Device;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Image> Image
+        {
+            get
+            {
+                if ((_Image == null))
+                {
+                    _Image = base.CreateObjectSet<Image>("Image");
+                }
+                return _Image;
+            }
+        }
+        private ObjectSet<Image> _Image;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Section> Section
+        {
+            get
+            {
+                if ((_Section == null))
+                {
+                    _Section = base.CreateObjectSet<Section>("Section");
+                }
+                return _Section;
+            }
+        }
+        private ObjectSet<Section> _Section;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -119,10 +187,42 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
             }
         }
         private ObjectSet<UserDevice> _UserDevice;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Video> Video
+        {
+            get
+            {
+                if ((_Video == null))
+                {
+                    _Video = base.CreateObjectSet<Video>("Video");
+                }
+                return _Video;
+            }
+        }
+        private ObjectSet<Video> _Video;
 
         #endregion
 
         #region AddTo Methods
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Article EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToArticle(Article article)
+        {
+            base.AddObject("Article", article);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ArticleAsset EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToArticleAsset(ArticleAsset articleAsset)
+        {
+            base.AddObject("ArticleAsset", articleAsset);
+        }
     
         /// <summary>
         /// Deprecated Method for adding a new object to the Device EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
@@ -130,6 +230,22 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         public void AddToDevice(Device device)
         {
             base.AddObject("Device", device);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Image EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToImage(Image image)
+        {
+            base.AddObject("Image", image);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Section EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToSection(Section section)
+        {
+            base.AddObject("Section", section);
         }
     
         /// <summary>
@@ -147,6 +263,14 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
         {
             base.AddObject("UserDevice", userDevice);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Video EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVideo(Video video)
+        {
+            base.AddObject("Video", video);
+        }
 
         #endregion
 
@@ -155,6 +279,580 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
     #endregion
 
     #region Entities
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ElijaModel", Name="Article")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Article : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Article object.
+        /// </summary>
+        /// <param name="articleId">Initial value of the ArticleId property.</param>
+        /// <param name="sectionId">Initial value of the SectionId property.</param>
+        /// <param name="title">Initial value of the Title property.</param>
+        /// <param name="description">Initial value of the Description property.</param>
+        /// <param name="createdAt">Initial value of the CreatedAt property.</param>
+        /// <param name="updatedAt">Initial value of the UpdatedAt property.</param>
+        /// <param name="isActive">Initial value of the IsActive property.</param>
+        /// <param name="thumbnail">Initial value of the Thumbnail property.</param>
+        public static Article CreateArticle(global::System.Int32 articleId, global::System.Int32 sectionId, global::System.String title, global::System.String description, global::System.DateTime createdAt, global::System.DateTime updatedAt, global::System.Boolean isActive, global::System.String thumbnail)
+        {
+            Article article = new Article();
+            article.ArticleId = articleId;
+            article.SectionId = sectionId;
+            article.Title = title;
+            article.Description = description;
+            article.CreatedAt = createdAt;
+            article.UpdatedAt = updatedAt;
+            article.IsActive = isActive;
+            article.Thumbnail = thumbnail;
+            return article;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ArticleId
+        {
+            get
+            {
+                return _ArticleId;
+            }
+            set
+            {
+                if (_ArticleId != value)
+                {
+                    OnArticleIdChanging(value);
+                    ReportPropertyChanging("ArticleId");
+                    _ArticleId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ArticleId");
+                    OnArticleIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ArticleId;
+        partial void OnArticleIdChanging(global::System.Int32 value);
+        partial void OnArticleIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SectionId
+        {
+            get
+            {
+                return _SectionId;
+            }
+            set
+            {
+                OnSectionIdChanging(value);
+                ReportPropertyChanging("SectionId");
+                _SectionId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("SectionId");
+                OnSectionIdChanged();
+            }
+        }
+        private global::System.Int32 _SectionId;
+        partial void OnSectionIdChanging(global::System.Int32 value);
+        partial void OnSectionIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Title
+        {
+            get
+            {
+                return _Title;
+            }
+            set
+            {
+                OnTitleChanging(value);
+                ReportPropertyChanging("Title");
+                _Title = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Title");
+                OnTitleChanged();
+            }
+        }
+        private global::System.String _Title;
+        partial void OnTitleChanging(global::System.String value);
+        partial void OnTitleChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private global::System.DateTime _CreatedAt;
+        partial void OnCreatedAtChanging(global::System.DateTime value);
+        partial void OnCreatedAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime UpdatedAt
+        {
+            get
+            {
+                return _UpdatedAt;
+            }
+            set
+            {
+                OnUpdatedAtChanging(value);
+                ReportPropertyChanging("UpdatedAt");
+                _UpdatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UpdatedAt");
+                OnUpdatedAtChanged();
+            }
+        }
+        private global::System.DateTime _UpdatedAt;
+        partial void OnUpdatedAtChanging(global::System.DateTime value);
+        partial void OnUpdatedAtChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsActive
+        {
+            get
+            {
+                return _IsActive;
+            }
+            set
+            {
+                OnIsActiveChanging(value);
+                ReportPropertyChanging("IsActive");
+                _IsActive = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsActive");
+                OnIsActiveChanged();
+            }
+        }
+        private global::System.Boolean _IsActive;
+        partial void OnIsActiveChanging(global::System.Boolean value);
+        partial void OnIsActiveChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Thumbnail
+        {
+            get
+            {
+                return _Thumbnail;
+            }
+            set
+            {
+                OnThumbnailChanging(value);
+                ReportPropertyChanging("Thumbnail");
+                _Thumbnail = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Thumbnail");
+                OnThumbnailChanged();
+            }
+        }
+        private global::System.String _Thumbnail;
+        partial void OnThumbnailChanging(global::System.String value);
+        partial void OnThumbnailChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__Article__Section__5EBF139D", "Section")]
+        public Section Section
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Section>("ElijaModel.FK__Article__Section__5EBF139D", "Section").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Section>("ElijaModel.FK__Article__Section__5EBF139D", "Section").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Section> SectionReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Section>("ElijaModel.FK__Article__Section__5EBF139D", "Section");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Section>("ElijaModel.FK__Article__Section__5EBF139D", "Section", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__ArticleAs__Artic__693CA210", "ArticleAsset")]
+        public EntityCollection<ArticleAsset> ArticleAsset
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ArticleAsset>("ElijaModel.FK__ArticleAs__Artic__693CA210", "ArticleAsset");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ArticleAsset>("ElijaModel.FK__ArticleAs__Artic__693CA210", "ArticleAsset", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ElijaModel", Name="ArticleAsset")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ArticleAsset : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ArticleAsset object.
+        /// </summary>
+        /// <param name="articleAssetId">Initial value of the ArticleAssetId property.</param>
+        /// <param name="createdAt">Initial value of the CreatedAt property.</param>
+        public static ArticleAsset CreateArticleAsset(global::System.Int32 articleAssetId, global::System.DateTime createdAt)
+        {
+            ArticleAsset articleAsset = new ArticleAsset();
+            articleAsset.ArticleAssetId = articleAssetId;
+            articleAsset.CreatedAt = createdAt;
+            return articleAsset;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ArticleAssetId
+        {
+            get
+            {
+                return _ArticleAssetId;
+            }
+            set
+            {
+                if (_ArticleAssetId != value)
+                {
+                    OnArticleAssetIdChanging(value);
+                    ReportPropertyChanging("ArticleAssetId");
+                    _ArticleAssetId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ArticleAssetId");
+                    OnArticleAssetIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ArticleAssetId;
+        partial void OnArticleAssetIdChanging(global::System.Int32 value);
+        partial void OnArticleAssetIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ArticleId
+        {
+            get
+            {
+                return _ArticleId;
+            }
+            set
+            {
+                OnArticleIdChanging(value);
+                ReportPropertyChanging("ArticleId");
+                _ArticleId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ArticleId");
+                OnArticleIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ArticleId;
+        partial void OnArticleIdChanging(Nullable<global::System.Int32> value);
+        partial void OnArticleIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> ImageId
+        {
+            get
+            {
+                return _ImageId;
+            }
+            set
+            {
+                OnImageIdChanging(value);
+                ReportPropertyChanging("ImageId");
+                _ImageId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ImageId");
+                OnImageIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _ImageId;
+        partial void OnImageIdChanging(Nullable<global::System.Int32> value);
+        partial void OnImageIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> VideoId
+        {
+            get
+            {
+                return _VideoId;
+            }
+            set
+            {
+                OnVideoIdChanging(value);
+                ReportPropertyChanging("VideoId");
+                _VideoId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("VideoId");
+                OnVideoIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _VideoId;
+        partial void OnVideoIdChanging(Nullable<global::System.Int32> value);
+        partial void OnVideoIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private global::System.DateTime _CreatedAt;
+        partial void OnCreatedAtChanging(global::System.DateTime value);
+        partial void OnCreatedAtChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__ArticleAs__Artic__693CA210", "Article")]
+        public Article Article
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Article>("ElijaModel.FK__ArticleAs__Artic__693CA210", "Article").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Article>("ElijaModel.FK__ArticleAs__Artic__693CA210", "Article").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Article> ArticleReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Article>("ElijaModel.FK__ArticleAs__Artic__693CA210", "Article");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Article>("ElijaModel.FK__ArticleAs__Artic__693CA210", "Article", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__ArticleAs__Image__6A30C649", "Image")]
+        public Image Image
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Image>("ElijaModel.FK__ArticleAs__Image__6A30C649", "Image").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Image>("ElijaModel.FK__ArticleAs__Image__6A30C649", "Image").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Image> ImageReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Image>("ElijaModel.FK__ArticleAs__Image__6A30C649", "Image");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Image>("ElijaModel.FK__ArticleAs__Image__6A30C649", "Image", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__ArticleAs__Video__6B24EA82", "Video")]
+        public Video Video
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("ElijaModel.FK__ArticleAs__Video__6B24EA82", "Video").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("ElijaModel.FK__ArticleAs__Video__6B24EA82", "Video").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Video> VideoReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Video>("ElijaModel.FK__ArticleAs__Video__6B24EA82", "Video");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Video>("ElijaModel.FK__ArticleAs__Video__6B24EA82", "Video", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
     
     /// <summary>
     /// No Metadata Documentation available.
@@ -590,6 +1288,326 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserDevice>("ElijaModel.FK__UserDevic__Devic__4AB81AF0", "UserDevice", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ElijaModel", Name="Image")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Image : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Image object.
+        /// </summary>
+        /// <param name="imageId">Initial value of the ImageId property.</param>
+        /// <param name="url">Initial value of the Url property.</param>
+        /// <param name="width">Initial value of the Width property.</param>
+        /// <param name="height">Initial value of the Height property.</param>
+        /// <param name="size">Initial value of the Size property.</param>
+        public static Image CreateImage(global::System.Int32 imageId, global::System.String url, global::System.Int32 width, global::System.Int32 height, global::System.Int32 size)
+        {
+            Image image = new Image();
+            image.ImageId = imageId;
+            image.Url = url;
+            image.Width = width;
+            image.Height = height;
+            image.Size = size;
+            return image;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ImageId
+        {
+            get
+            {
+                return _ImageId;
+            }
+            set
+            {
+                if (_ImageId != value)
+                {
+                    OnImageIdChanging(value);
+                    ReportPropertyChanging("ImageId");
+                    _ImageId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ImageId");
+                    OnImageIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ImageId;
+        partial void OnImageIdChanging(global::System.Int32 value);
+        partial void OnImageIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Url
+        {
+            get
+            {
+                return _Url;
+            }
+            set
+            {
+                OnUrlChanging(value);
+                ReportPropertyChanging("Url");
+                _Url = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Url");
+                OnUrlChanged();
+            }
+        }
+        private global::System.String _Url;
+        partial void OnUrlChanging(global::System.String value);
+        partial void OnUrlChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Width
+        {
+            get
+            {
+                return _Width;
+            }
+            set
+            {
+                OnWidthChanging(value);
+                ReportPropertyChanging("Width");
+                _Width = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Width");
+                OnWidthChanged();
+            }
+        }
+        private global::System.Int32 _Width;
+        partial void OnWidthChanging(global::System.Int32 value);
+        partial void OnWidthChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Height
+        {
+            get
+            {
+                return _Height;
+            }
+            set
+            {
+                OnHeightChanging(value);
+                ReportPropertyChanging("Height");
+                _Height = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Height");
+                OnHeightChanged();
+            }
+        }
+        private global::System.Int32 _Height;
+        partial void OnHeightChanging(global::System.Int32 value);
+        partial void OnHeightChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Size
+        {
+            get
+            {
+                return _Size;
+            }
+            set
+            {
+                OnSizeChanging(value);
+                ReportPropertyChanging("Size");
+                _Size = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Size");
+                OnSizeChanged();
+            }
+        }
+        private global::System.Int32 _Size;
+        partial void OnSizeChanging(global::System.Int32 value);
+        partial void OnSizeChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__ArticleAs__Image__6A30C649", "ArticleAsset")]
+        public EntityCollection<ArticleAsset> ArticleAsset
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ArticleAsset>("ElijaModel.FK__ArticleAs__Image__6A30C649", "ArticleAsset");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ArticleAsset>("ElijaModel.FK__ArticleAs__Image__6A30C649", "ArticleAsset", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ElijaModel", Name="Section")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Section : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Section object.
+        /// </summary>
+        /// <param name="sectionId">Initial value of the SectionId property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="createdAt">Initial value of the CreatedAt property.</param>
+        public static Section CreateSection(global::System.Int32 sectionId, global::System.String name, global::System.DateTime createdAt)
+        {
+            Section section = new Section();
+            section.SectionId = sectionId;
+            section.Name = name;
+            section.CreatedAt = createdAt;
+            return section;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 SectionId
+        {
+            get
+            {
+                return _SectionId;
+            }
+            set
+            {
+                if (_SectionId != value)
+                {
+                    OnSectionIdChanging(value);
+                    ReportPropertyChanging("SectionId");
+                    _SectionId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("SectionId");
+                    OnSectionIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _SectionId;
+        partial void OnSectionIdChanging(global::System.Int32 value);
+        partial void OnSectionIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime CreatedAt
+        {
+            get
+            {
+                return _CreatedAt;
+            }
+            set
+            {
+                OnCreatedAtChanging(value);
+                ReportPropertyChanging("CreatedAt");
+                _CreatedAt = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("CreatedAt");
+                OnCreatedAtChanged();
+            }
+        }
+        private global::System.DateTime _CreatedAt;
+        partial void OnCreatedAtChanging(global::System.DateTime value);
+        partial void OnCreatedAtChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__Article__Section__5EBF139D", "Article")]
+        public EntityCollection<Article> Article
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Article>("ElijaModel.FK__Article__Section__5EBF139D", "Article");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Article>("ElijaModel.FK__Article__Section__5EBF139D", "Article", value);
                 }
             }
         }
@@ -1274,6 +2292,114 @@ namespace Freakybite.ElijaWebServices.DataAccess.Model
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("ElijaModel.FK__UserDevic__UserI__49C3F6B7", "User", value);
+                }
+            }
+        }
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="ElijaModel", Name="Video")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Video : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Video object.
+        /// </summary>
+        /// <param name="videoId">Initial value of the VideoId property.</param>
+        /// <param name="url">Initial value of the Url property.</param>
+        public static Video CreateVideo(global::System.Int32 videoId, global::System.String url)
+        {
+            Video video = new Video();
+            video.VideoId = videoId;
+            video.Url = url;
+            return video;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 VideoId
+        {
+            get
+            {
+                return _VideoId;
+            }
+            set
+            {
+                if (_VideoId != value)
+                {
+                    OnVideoIdChanging(value);
+                    ReportPropertyChanging("VideoId");
+                    _VideoId = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("VideoId");
+                    OnVideoIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _VideoId;
+        partial void OnVideoIdChanging(global::System.Int32 value);
+        partial void OnVideoIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Url
+        {
+            get
+            {
+                return _Url;
+            }
+            set
+            {
+                OnUrlChanging(value);
+                ReportPropertyChanging("Url");
+                _Url = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Url");
+                OnUrlChanged();
+            }
+        }
+        private global::System.String _Url;
+        partial void OnUrlChanging(global::System.String value);
+        partial void OnUrlChanged();
+
+        #endregion
+
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("ElijaModel", "FK__ArticleAs__Video__6B24EA82", "ArticleAsset")]
+        public EntityCollection<ArticleAsset> ArticleAsset
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ArticleAsset>("ElijaModel.FK__ArticleAs__Video__6B24EA82", "ArticleAsset");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ArticleAsset>("ElijaModel.FK__ArticleAs__Video__6B24EA82", "ArticleAsset", value);
                 }
             }
         }
