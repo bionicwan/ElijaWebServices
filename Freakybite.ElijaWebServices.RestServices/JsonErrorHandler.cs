@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
