@@ -16,7 +16,7 @@
             using (var downloader = new WebClient())
             {
                 var inputImage = downloader.OpenRead(url);
-                var resizeSettings = new ResizeSettings { MaxHeight = 350, MaxWidth = 350 };
+                var resizeSettings = new ResizeSettings {/*MaxHeight = 350, MaxWidth = 350,*/ Quality = 50};
                 ImageBuilder.Current.Build(inputImage, outputImage, resizeSettings, true);
             }
             byte[] fileDataInByte = null;

@@ -31,6 +31,13 @@ namespace Freakybite.ElijaWebServices.RestServices
             return result;
         }
 
+        public Result GetAudio()
+        {
+            var service = new ElijaServiceManager();
+            var result = new Result();//service.GetAudio();
+            return result;
+        }
+
         #endregion
     }
 }

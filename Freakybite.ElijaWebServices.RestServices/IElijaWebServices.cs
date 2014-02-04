@@ -20,6 +20,11 @@ namespace Freakybite.ElijaWebServices.RestServices
             UriTemplate = "UserRegistration/")]
         Result UserRegistration(UserDeviceModel userDevice);
 
+        [OperationContract]
+        [WebInvoke(Method = "GET", ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Bare,
+            UriTemplate = "GetAudio/")]
+        Result GetAudio();
+
         #endregion
     }
 }

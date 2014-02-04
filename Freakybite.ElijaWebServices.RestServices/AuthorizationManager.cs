@@ -12,7 +12,7 @@ namespace Freakybite.ElijaWebServices.RestServices
 
     public class AuthorizationManager : ServiceAuthorizationManager
     {
-        private static readonly ILog logger = LogManager.GetLogger(typeof(ElijaServiceManager));
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(ElijaServiceManager));
 
         #region Public Methods and Operators
 
@@ -58,7 +58,7 @@ namespace Freakybite.ElijaWebServices.RestServices
             }
             catch (Exception e)
             {
-                logger.Info(e.Message);
+                Logger.Info(e.Message);
                 throw new SecurityTokenException(e.Message);
             }
         }

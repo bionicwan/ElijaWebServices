@@ -7,8 +7,8 @@ using log4net;
 
 namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 {
-    using Freakybite.ElijaWebServices.Processing.Helpers;
-    using Freakybite.ElijaWebServices.Core.Resources;
+    using Helpers;
+    using Core.Resources;
 
     public class ElijaServiceManager
     {
@@ -194,8 +194,17 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             DeviceRepository.Add(device);
             DeviceRepository.Save();
 
+            var maxUserDeviceId = 1L;
+            var userDeviceId = UserDeviceRepository.MaxEntity();
+
+            if (userDeviceId != null)
+            {
+                maxUserDeviceId = userDeviceId.UserDeviceId + 1;
+            }
+
             var userDeviceDb = new UserDevice
             {
+                UserDeviceId = maxUserDeviceId,
                 UserId = userDb.UserId,
                 DeviceId = device.DeviceId,
                 CreatedAt = DateTime.Now,
@@ -253,6 +262,16 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             }
 
             var userDevice = new UserDevice();
+            var maxUserDeviceId = 1L;
+            var userDeviceId = UserDeviceRepository.MaxEntity();
+
+            if (userDeviceId != null)
+            {
+                maxUserDeviceId = userDeviceId.UserDeviceId + 1;
+            }
+
+            userDevice.UserDeviceId = maxUserDeviceId;
+
             var userToken = Guid.NewGuid();
             var maxUserId = 1L;
             var userId = UserRepository.MaxEntity();
