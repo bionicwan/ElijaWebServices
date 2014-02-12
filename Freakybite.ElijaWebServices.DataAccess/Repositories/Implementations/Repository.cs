@@ -8,7 +8,7 @@ using Freakybite.ElijaWebServices.DataAccess.Repositories.Interfaces;
 
 namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
 {
-    public abstract class Repository<T> : IRepository<T>
+    public class Repository<T> : IRepository<T>
         where T : class
     {
         #region Constructors and Destructors
@@ -16,12 +16,10 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         /// <summary>
         ///     Initializes a new instance of the <see cref="Repository{T}" /> class.
         /// </summary>
-        /// <param name="contextFactory">
-        ///     The database context factory.
-        /// </param>
-        protected Repository(IDbContextFactory contextFactory)
+        /// <param name="context"></param>
+        public Repository(ElijaEntities context)
         {
-            Context = contextFactory.GetDbContext();
+            Context = context;
         }
 
         #endregion
@@ -181,17 +179,6 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Implementations
         public void Refresh(T entity)
         {
             Context.Refresh(RefreshMode.StoreWins, entity);
-        }
-
-        /// <summary>
-        ///     The save.
-        /// </summary>
-        /// <returns>
-        ///     The <see cref="int" />.
-        /// </returns>
-        public int Save()
-        {
-            return Context.SaveChanges();
         }
 
         /// <summary>

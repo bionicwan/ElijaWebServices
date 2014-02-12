@@ -8,25 +8,7 @@
     {
         #region Fields
 
-        private readonly DbContextFactory context = new DbContextFactory();
-        private UserRepository userRepository;
-
-        #endregion
-
-        #region Public Properties
-
-        public UserRepository UserRepository
-        {
-            get
-            {
-                if (this.userRepository == null)
-                {
-                    this.userRepository = new UserRepository(this.context);
-                }
-
-                return this.userRepository;
-            }
-        }
+        private readonly UnitOfWork unitOfWork = new UnitOfWork();
 
         #endregion
 
@@ -35,7 +17,7 @@
         public bool ValidateToken(string token)
         {
             var userToken = new Guid(token);
-            var user = this.UserRepository.FindFirstBy(e => e.Token == userToken);
+            var user = this.unitOfWork.UserRepository.FindFirstBy(e => e.Token == userToken);
 
             return user != null;
         }

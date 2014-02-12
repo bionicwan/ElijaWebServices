@@ -14,57 +14,11 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
     {
         #region Fields
 
-        private readonly DbContextFactory context = new DbContextFactory();
-
-        private DeviceRepository deviceRepository;
-        private UserDeviceRepository userDeviceRepository;
-        private UserRepository userRepository;
-        private static readonly ILog logger = LogManager.GetLogger(typeof(ElijaServiceManager));
+        private readonly UnitOfWork unitOfWork = new UnitOfWork();
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(ElijaServiceManager));
 
         #endregion
 
-        #region Public Properties
-
-        public DeviceRepository DeviceRepository
-        {
-            get
-            {
-                if (deviceRepository == null)
-                {
-                    deviceRepository = new DeviceRepository(context);
-                }
-
-                return deviceRepository;
-            }
-        }
-
-        public UserDeviceRepository UserDeviceRepository
-        {
-            get
-            {
-                if (userDeviceRepository == null)
-                {
-                    userDeviceRepository = new UserDeviceRepository(context);
-                }
-
-                return userDeviceRepository;
-            }
-        }
-
-        public UserRepository UserRepository
-        {
-            get
-            {
-                if (userRepository == null)
-                {
-                    userRepository = new UserRepository(context);
-                }
-
-                return userRepository;
-            }
-        }
-
-        #endregion
 
         #region Public Methods and Operators
 
@@ -113,7 +67,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             try
             {
                 // Check whether the user is registered in the Data Base.
-                var userDb = UserRepository.FindFirstBy(e => e.FacebookId == userDevice.FacebookId);
+                var userDb = unitOfWork.UserRepository.FindFirstBy(e => e.FacebookId == userDevice.FacebookId);
                 if (userDb == null)
                 {
                     return InsertNewUser(userDevice);
@@ -122,7 +76,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 // If it's a registered user who made the request but from a non registered device, create a new record for
                 // the new device.
                 var device =
-                    this.UserDeviceRepository.FindFirstBy(
+                    this.unitOfWork.UserDeviceRepository.FindFirstBy(
                         e => e.UserId == userDb.UserId && e.Device.AndroidId == userDevice.AndroidId);
                 if (device == null)
                 {
@@ -137,7 +91,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             {
                 result.Success = false;
                 result.Message = ErrorMessages.ErrorMessage;
-                logger.Error(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+                Logger.Error(ex.InnerException != null ? ex.InnerException.Message : ex.Message);
             }
 
             return result;
@@ -166,7 +120,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             }
 
             var maxDeviceId = 1L;
-            var deviceId = DeviceRepository.MaxEntity();
+            var deviceId = unitOfWork.DeviceRepository.MaxEntity();
             if (deviceId != null)
             {
                 maxDeviceId = maxDeviceId + deviceId.DeviceId;
@@ -191,11 +145,11 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 RegistrationDate = registrationDate
             };
 
-            DeviceRepository.Add(device);
-            DeviceRepository.Save();
+            unitOfWork.DeviceRepository.Add(device);
+            unitOfWork.Save();
 
             var maxUserDeviceId = 1L;
-            var userDeviceId = UserDeviceRepository.MaxEntity();
+            var userDeviceId = unitOfWork.UserDeviceRepository.MaxEntity();
 
             if (userDeviceId != null)
             {
@@ -211,15 +165,8 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
                 LastActivityDate = DateTime.Now
             };
 
-            UserDeviceRepository.Add(userDeviceDb);
-            var insertResult = UserDeviceRepository.Save();
-
-            // If something goes wrong, undo the change.
-            if (insertResult == 0)
-            {
-                DeviceRepository.Delete(device);
-                DeviceRepository.Save();
-            }
+            unitOfWork.UserDeviceRepository.Add(userDeviceDb);
+            unitOfWork.Save();
 
             result.Content = userDb.Token.ToString();
             result.Success = true;
@@ -263,7 +210,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
             var userDevice = new UserDevice();
             var maxUserDeviceId = 1L;
-            var userDeviceId = UserDeviceRepository.MaxEntity();
+            var userDeviceId = unitOfWork.UserDeviceRepository.MaxEntity();
 
             if (userDeviceId != null)
             {
@@ -274,7 +221,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
             var userToken = Guid.NewGuid();
             var maxUserId = 1L;
-            var userId = UserRepository.MaxEntity();
+            var userId = unitOfWork.UserRepository.MaxEntity();
             if (userId != null)
             {
                 maxUserId = maxUserId + userId.UserId;
@@ -303,7 +250,7 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
 
             // Add the new device's information.
             var maxDeviceId = 1L;
-            var deviceId = DeviceRepository.MaxEntity();
+            var deviceId = unitOfWork.DeviceRepository.MaxEntity();
             if (deviceId != null)
             {
                 maxDeviceId = maxDeviceId + deviceId.DeviceId;
@@ -331,8 +278,8 @@ namespace Freakybite.ElijaWebServices.Processing.ServiceManagers
             userDevice.CreatedAt = DateTime.Now;
             userDevice.LastActivityDate = DateTime.Now;
 
-            UserDeviceRepository.Add(userDevice);
-            UserDeviceRepository.Save();
+            unitOfWork.UserDeviceRepository.Add(userDevice);
+            unitOfWork.Save();
 
             result.Content = userDevice.User.Token.ToString();
             result.Success = true;

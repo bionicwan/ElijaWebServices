@@ -63,10 +63,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementations\DbContextFactory.cs" />
-    <Compile Include="Repositories\Implementations\DeviceRepository.cs" />
     <Compile Include="Repositories\Implementations\Repository.cs" />
-    <Compile Include="Repositories\Implementations\UserDeviceRepository.cs" />
-    <Compile Include="Repositories\Implementations\UserRepository.cs" />
+    <Compile Include="Repositories\Implementations\UnitOfWork.cs" />
     <Compile Include="Repositories\Interfaces\IDbContextFactory.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
   </ItemGroup>

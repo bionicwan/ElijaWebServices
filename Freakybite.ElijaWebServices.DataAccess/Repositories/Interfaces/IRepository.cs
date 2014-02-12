@@ -83,14 +83,6 @@ namespace Freakybite.ElijaWebServices.DataAccess.Repositories.Interfaces
         void Refresh(T entity);
 
         /// <summary>
-        /// The save.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="int"/>.
-        /// </returns>
-        int Save();
-
-        /// <summary>
         /// The update.
         /// </summary>
         /// <param name="entity">
